@@ -1,0 +1,199 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+## Library turn on Functions##
+#Required Packages#
+library(GGally)
+library(jmv)
+library(lubridate)
+library(plyr)
+library(reshape2)
+library(tidyverse)
+
+
+```{r}
+jmv::descriptives(
+  data = mlb_eloFULL,
+  vars = "team1",
+  freq = TRUE
+)
+```
+ 
+
+```{r}
+
+MLBTeamGames <- data.frame(c(mlb_eloFULL$team1, mlb_eloFULL$team2))
+
+BOSRED <-   MLBTeamGames[MLBTeamGames=="BOS"]
+
+length(BOSRED)
+
+
+
+```
+
+
+
+
+
+```{r}
+CSHGPA <- mlb_eloFULL[mlb_eloFULL$pitcher1=="Chris Sale", "score2"]
+
+CSAGPA <- mlb_eloFULL[mlb_eloFULL$pitcher2=="Chris Sale", "score1"]
+
+CSPAmelt <- melt(c(CSAGPA, CSHGPA), na.rm = TRUE)
+
+CSPA1 <- data.frame(CSPAmelt$value, stringsAsFactors = FALSE)
+
+CSPA <- CSPA1$CSPAmelt.value
+
+mean(CSPA)
+median(CSPA)
+
+boxplot(CSPA, horizontal = TRUE)
+```
+
+
+
+
+
+```{r}
+boxplot(c(CSHGPA, CSAGPA), horizontal = TRUE, names = c("Home Games", "Away Games"), main = "Chris Sale", sub = "Runs Allowed in a Game as Starter", notch = TRUE)
+
+boxplot(CSPA, horizontal = TRUE, main = "Chris Sale", names = c("Runs Allowed"), sub = "Runs Allowed in a Game as Starter")
+```
+
+
+
+
+
+```{r}
+bos_eloHOME <- subset(mlb_eloFULL, team1=="BOS", select = c(date, team2, pitcher1, score1, score2) )
+
+CsBRhg <- subset(bos_eloHOME, pitcher1=="Chris Sale", select = c(team2, pitcher1, score1, score2))
+
+bos_eloAWAY <- subset(mlb_eloFULL, team2=="BOS", select = c(date, team1, pitcher2, score1, score2))
+
+CsBRag <- subset(bos_eloAWAY, pitcher2=="Chris Sale", select = c(team1, pitcher2, score1, score2))
+
+boxplot(CsBRhg$score2, horizontal = TRUE, names = "Home Games", main = "Chris Sale", sub = "Runs Allowed at Fenway")
+
+boxplot(CsBRag$score1, horizontal = TRUE, names = "Away Games", main = "Chris Sale", sub = "Runs Allowed on the Road (With Red Sox)")
+```
+
+
+
+```{r}
+summary(CSHGPA)
+summary(CSAGPA)
+```
+
+
+
+
+
+```{r}
+BRHGRs <- mlb_eloFULL[mlb_eloFULL$team1=="BOS", "score1"]
+
+BRHGRsA <- mlb_eloFULL[mlb_eloFULL$team1=="BOS", "score2"]
+
+BRAGRs <- mlb_eloFULL[mlb_eloFULL$team2=="BOS", "score2"]
+
+BRAGRsA <- mlb_eloFULL[mlb_eloFULL$team2=="BOS", "score1"]
+
+summary(BRHGRs)
+summary(BRHGRsA)
+```
+
+
+
+
+
+```{r}
+boxplot(BRHGRs$score1, BRHGRsA$score2, horizontal = TRUE, names =  c("Runs", "Runs Allowed"), main = "Boston Red Sox", sub = "Runs in a game (1901-2018)", notch = TRUE)
+
+length(BRHGRs$score1)
+length(BRHGRsA$score2)
+```
+
+
+
+
+
+```{r}
+jmv::descriptives(
+  data = BRHGRs,
+  vars = "score1",
+  hist = TRUE,
+  freq = TRUE,
+  mean = TRUE,
+  sum = TRUE,
+  mode = TRUE,
+  quart = TRUE
+)
+```
+
+
+
+
+
+
+```{r}
+BRwcsHGelo <- subset(bos_eloHOME, date > "2016-01-01", select = c(date, team2, pitcher1, score1, score2))
+                     
+BRwcsAGelo <- subset(bos_eloAWAY, bos_eloAWAY$date > "2016-04-05", select = c(date, team1, pitcher2, score1, score2))
+
+boxplot(c(BRwcsHGelo$score2), horizontal = TRUE)
+
+```
+
+```{r}
+boxplot(BRwcsAGelo$score1, horizontal = TRUE)
+```
+
+
+```{r}
+summary(BRwcsHGelo$score2)
+summary(BRwcsAGelo$score1)
+summary(CsBRhg$score2)
+summary(CsBRag$score1)
+```
+
+
+```{r}
+BRSallRsA16t18 <- melt(BRwcsHGelo$score2, BRwcsAGelo$score1, value.name = "RunsAllowed", na.rm = TRUE)
+
+BRSallRsS16t18 <- melt(BRwcsHGelo$score1, BRwcsAGelo$score2, value.name = "RunsScored", na.rm = TRUE)
+
+boxplot(c(BRSallRsA16t18, BRSallRsS16t18), horizontal = TRUE, main = "BOSTON RED SOX", sub = "Since Aquisition of Chris Sale", col = c("blue", "red"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
