@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+elo.prob(mlb_eloFULL$elo_prob1, mlb_eloFULL$elo_prob2)
+```
+
+
+
+
+
+
+
+
+

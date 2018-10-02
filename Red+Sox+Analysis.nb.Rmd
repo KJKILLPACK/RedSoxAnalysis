@@ -15,8 +15,19 @@ library(tidyverse)
 
 
 ```{r}
+
+
+```
+
+
+
+
+
+
+
+```{r}
 jmv::descriptives(
-  data = mlb_eloFULL,
+  data = mlb_elo,
   vars = "team1",
   freq = TRUE
 )
@@ -40,9 +51,9 @@ length(BOSRED)
 
 
 ```{r}
-CSHGPA <- mlb_eloFULL[mlb_eloFULL$pitcher1=="Chris Sale", "score2"]
+CSHGPA <- mlb_elo[mlb_eloFULL$pitcher1=="Chris Sale", "score2"]
 
-CSAGPA <- mlb_eloFULL[mlb_eloFULL$pitcher2=="Chris Sale", "score1"]
+CSAGPA <- mlb_elo[mlb_eloFULL$pitcher2=="Chris Sale", "score1"]
 
 CSPAmelt <- melt(c(CSAGPA, CSHGPA), na.rm = TRUE)
 
@@ -61,7 +72,7 @@ boxplot(CSPA, horizontal = TRUE)
 
 
 ```{r}
-boxplot(c(CSHGPA, CSAGPA), horizontal = TRUE, names = c("Home Games", "Away Games"), main = "Chris Sale", sub = "Runs Allowed in a Game as Starter", notch = TRUE)
+boxplot(c(CSHGPA, CSAGPA), horizontal = TRUE, names = c("Home Games", "Away Games"), main = "Chris Sale", sub = "Runs Allowed in a Game as Starter", notch = FALSE)
 
 boxplot(CSPA, horizontal = TRUE, main = "Chris Sale", names = c("Runs Allowed"), sub = "Runs Allowed in a Game as Starter")
 ```
@@ -71,11 +82,11 @@ boxplot(CSPA, horizontal = TRUE, main = "Chris Sale", names = c("Runs Allowed"),
 
 
 ```{r}
-bos_eloHOME <- subset(mlb_eloFULL, team1=="BOS", select = c(date, team2, pitcher1, score1, score2) )
+bos_eloHOME <- subset(mlb_elo, team1=="BOS", select = c(date, team2, pitcher1, score1, score2) )
 
 CsBRhg <- subset(bos_eloHOME, pitcher1=="Chris Sale", select = c(team2, pitcher1, score1, score2))
 
-bos_eloAWAY <- subset(mlb_eloFULL, team2=="BOS", select = c(date, team1, pitcher2, score1, score2))
+bos_eloAWAY <- subset(mlb_elo, team2=="BOS", select = c(date, team1, pitcher2, score1, score2))
 
 CsBRag <- subset(bos_eloAWAY, pitcher2=="Chris Sale", select = c(team1, pitcher2, score1, score2))
 
@@ -96,13 +107,13 @@ summary(CSAGPA)
 
 
 ```{r}
-BRHGRs <- mlb_eloFULL[mlb_eloFULL$team1=="BOS", "score1"]
+BRHGRs <- mlb_eloFULL[mlb_elo$team1=="BOS", "score1"]
 
-BRHGRsA <- mlb_eloFULL[mlb_eloFULL$team1=="BOS", "score2"]
+BRHGRsA <- mlb_eloFULL[mlb_elo$team1=="BOS", "score2"]
 
-BRAGRs <- mlb_eloFULL[mlb_eloFULL$team2=="BOS", "score2"]
+BRAGRs <- mlb_eloFULL[mlb_elo$team2=="BOS", "score2"]
 
-BRAGRsA <- mlb_eloFULL[mlb_eloFULL$team2=="BOS", "score1"]
+BRAGRsA <- mlb_eloFULL[mlb_elo$team2=="BOS", "score1"]
 
 summary(BRHGRs)
 summary(BRHGRsA)
@@ -113,12 +124,18 @@ summary(BRHGRsA)
 
 
 ```{r}
-boxplot(BRHGRs$score1, BRHGRsA$score2, horizontal = TRUE, names =  c("Runs", "Runs Allowed"), main = "Boston Red Sox", sub = "Runs in a game (1901-2018)", notch = TRUE)
+boxplot(BRHGRs$score1, BRHGRsA$score2, horizontal = TRUE, names =  c("Runs", "Runs Allowed"), main = "Boston Red Sox", sub = "Runs in a game (1901-2018)", notch = TRUE, outline = TRUE)
 
 length(BRHGRs$score1)
 length(BRHGRsA$score2)
 ```
+Without Outliers
+```{r}
+boxplot(BRHGRs$score1, BRHGRsA$score2, horizontal = TRUE, names =  c("Runs", "Runs Allowed"), main = "Boston Red Sox", sub = "Runs in a game (1901-2018)", notch = TRUE, outline = FALSE)
 
+length(BRHGRs$score1)
+length(BRHGRsA$score2)
+```
 
 
 
