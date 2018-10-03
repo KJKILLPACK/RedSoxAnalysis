@@ -15,17 +15,6 @@ library(tidyverse)
 
 
 ```{r}
-
-
-```
-
-
-
-
-
-
-
-```{r}
 jmv::descriptives(
   data = mlb_elo,
   vars = "team1",

@@ -1,17 +1,12 @@
 ---
 title: "MLB PLAYOFFS 2018"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 
 
----
-Library
-library(janitor)
-library(reshape)
-library(tidyverse)
-library(plyr)
----
-```{r}
+```{r echo = FALSE}
 MLB2018r <- subset(mlb_elo, season == "2018", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
 
 MLB2018 <- MLB2018 %>% clean_names() %>% mutate( team1 = as.factor(team1), team2 = as.factor(team2))
@@ -20,7 +15,7 @@ MLB2018 <- MLB2018 %>% clean_names() %>% mutate( team1 = as.factor(team1), team2
 
 
 
-```{r}
+```{r echo = FALSE}
 YANKS18H <- subset(MLB2018, team1 == "NYY", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
 
 YANKS18A <- subset(MLB2018, team2 == "NYY", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
@@ -34,17 +29,17 @@ OAK18A <- subset(MLB2018, team2 == "OAK", select = c(date, playoff, season, team
 #***Wild Card Games***
 
 
-##*Yankees vs. A's*
-
-```{r}
+##Yankees vs. A's
+###*$161,305,917 vs. $62,652,500*
+```{r echo = FALSE}
 YANKSHRs   <- MLB2018[MLB2018$team1=="NYY", "score1"]
 YANKSHRa   <- MLB2018[MLB2018$team1=="NYY", "score2"]
 YANKSARs   <- MLB2018[MLB2018$team2=="NYY", "score2"]
 YANKSARa   <- MLB2018[MLB2018$team2=="NYY", "score1"]
 NYYRsMELT  <- melt(c(YANKSHRs, YANKSARs), na.rm = TRUE)
 NYYRaMELT  <- melt(c(YANKSHRa, YANKSARa), na.rm = TRUE)
-NYYRs      <- data.frame(NYYRsMELT$value, stringsAsFactors = FALSE)
-NYYRa      <- data.frame(NYYRaMELT$value, stringAsFactors = FALSE)
+NYYRs      <- data.frame(NYYRsMELT$value)
+NYYRa      <- data.frame(NYYRaMELT$value)
 
 LSnyyHRs   <- MLB2018[MLB2018$pitcher1=="Luis Severino", "score1"]
 LSnyyHRa   <- MLB2018[MLB2018$pitcher1=="Luis Severino", "score2"]
@@ -52,8 +47,8 @@ LSnyyARs   <- MLB2018[MLB2018$pitcher2=="Luis Severino", "score2"]
 LSnyyARa   <- MLB2018[MLB2018$pitcher2=="Luis Severino", "score1"]
 LSnyyRMELT <- melt(c(LSevrHRs, LSevrARs), na.rm = TRUE)
 LSnyyAMELT <- melt(c(LSevrHRa, LSevrARa), na.rm = TRUE)
-LSnyyRs    <- data.frame(LSevRMELT$value, stringsAsFactors = FALSE)
-LSnyyRa    <- data.frame(LSevAMELT$value, stringAsFactors = FALSE)
+LSnyyRs    <- data.frame(LSevRMELT$value)
+LSnyyRa    <- data.frame(LSevAMELT$value)
 
 OAKHRs     <- MLB2018[MLB2018$team1=="OAK", "score1"]
 OAKHRa     <- MLB2018[MLB2018$team1=="OAK", "score2"]
@@ -61,8 +56,8 @@ OAKARs     <- MLB2018[MLB2018$team2=="OAK", "score2"]
 OAKARa     <- MLB2018[MLB2018$team2=="OAK", "score1"]
 OAKRsMELT  <- melt(c(OAKHRs, OAKARs), na.rm = TRUE)
 OAKaMELT   <- melt(c(OAKHRa, OAKARa), na.rm = TRUE)
-OAKRs      <- data.frame(OAKRsMELT$value, stringsAsFactors = FALSE)
-OAKRa      <- data.frame(OAKaMELT$value, stringAsFactors = FALSE)
+OAKRs      <- data.frame(OAKRsMELT$value)
+OAKRa      <- data.frame(OAKaMELT$value)
 
 LHoakHRs   <- MLB2018[MLB2018$pitcher1=="Liam Hendriks", "score1"]
 LHoakHRa   <- MLB2018[MLB2018$pitcher1=="Liam Hendriks", "score2"]
@@ -70,9 +65,11 @@ LHoakARs   <- MLB2018[MLB2018$pitcher2=="Liam Hendriks", "score2"]
 LHoakARa   <- MLB2018[MLB2018$pitcher2=="Liam Hendriks", "score1"]
 LHoakRMELT <- melt(c(LHoakHRs, LHoakARs), na.rm = TRUE)
 LHoakAMELT <- melt(c(LHoakHRa, LHoakARa), na.rm = TRUE)
-LHoakRs    <- data.frame(LHoakRMELT$value, stringsAsFactors = FALSE)
-LHoakRa    <- data.frame(LHoakAMELT$value, stringAsFactors = FALSE)
+LHoakRs    <- data.frame(LHoakRMELT$value)
+LHoakRa    <- data.frame(LHoakAMELT$value)
+```
 
+```{r echo = FALSE}
 print("New York SaberWin%")
 sabermtrkk.WP(NYYRs, NYYRa)
 print("Oakland As Saberwin%")
@@ -86,10 +83,37 @@ sabermtrkk.WP(LHoakRs, LHoakRa)
 
 
 
+```{r echo = FALSE}
+boxplot(c(NYYRa, OAKRa, NYYRs, OAKRs), horizontal = TRUE, names = c("NYY.RA", "OAK.RA", "NYY.Rs", "OAK.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "midnightblue", "forestgreen", "midnightblue", "forestgreen"), notch = TRUE, outline = FALSE)
+```
 
 
 
 
+```{r echo = FALSE}
+NYY18OAK     <- subset(YANKS18H, team2=="OAK", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2), na.rm = TRUE)
+
+OAK18NYY     <- subset(YANKS18A, team1=="OAK", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2))
+
+OAKvYANKS    <- melt(c(NYY18OAK$score1, OAK18NYY$score2))
+
+YANKSvOAK    <- melt(c(NYY18OAK$score2, OAK18NYY$score1))
+```
+
+```{r echo = FALSE}
+boxplot(c(OAKvYANKS, YANKSvOAK), horizontal = TRUE, names = c("OAK", "NYY"), main = "OAK vs NYY '18", sub = "Runs Scored against eachother", col = c("forestgreen", "midnightblue"), border = "goldenrod")
+```
+
+
+
+Average Runs Scored by the Yankees and Oakland against each other
+
+```{r echo = FALSE}
+print("OAK")
+mean(OAKvYANKS$value, na.rm = TRUE)
+print("NYY")
+mean(YANKSvOAK$value, na.rm = TRUE)
+```
 
 
 
