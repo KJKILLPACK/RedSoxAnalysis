@@ -37,26 +37,50 @@ OAK18A <- subset(MLB2018, team2 == "OAK", select = c(date, playoff, season, team
 ##*Yankees vs. A's*
 
 ```{r}
-YANKSHRs  <- MLB2018[MLB2018$team1=="NYY", "score1"]
-YANKSHRa  <- MLB2018[MLB2018$team1=="NYY", "score2"]
-YANKSARs  <- MLB2018[MLB2018$team2=="NYY", "score2"]
-YANKSARa  <- MLB2018[MLB2018$team2=="NYY", "score1"]
-NYYRsMELT <- melt(c(YANKSHRs, YANKSARs), na.rm = TRUE)
-NYYRaMELT <- melt(c(YANKSHRa, YANKSARa), na.rm = TRUE)
-NYYRs     <- data.frame(NYYRsMELT$value, stringsAsFactors = FALSE)
-NYYRa     <- data.frame(NYYRaMELT$value, stringAsFactors = FALSE)
+YANKSHRs   <- MLB2018[MLB2018$team1=="NYY", "score1"]
+YANKSHRa   <- MLB2018[MLB2018$team1=="NYY", "score2"]
+YANKSARs   <- MLB2018[MLB2018$team2=="NYY", "score2"]
+YANKSARa   <- MLB2018[MLB2018$team2=="NYY", "score1"]
+NYYRsMELT  <- melt(c(YANKSHRs, YANKSARs), na.rm = TRUE)
+NYYRaMELT  <- melt(c(YANKSHRa, YANKSARa), na.rm = TRUE)
+NYYRs      <- data.frame(NYYRsMELT$value, stringsAsFactors = FALSE)
+NYYRa      <- data.frame(NYYRaMELT$value, stringAsFactors = FALSE)
 
-OAKHRs  <- MLB2018[MLB2018$team1=="OAK", "score1"]
-OAKHRa  <- MLB2018[MLB2018$team1=="OAK", "score2"]
-OAKARs  <- MLB2018[MLB2018$team2=="OAK", "score2"]
-OAKARa  <- MLB2018[MLB2018$team2=="OAK", "score1"]
-OAKRsMELT <- melt(c(OAKHRs, OAKARs), na.rm = TRUE)
-OAKaMELT <- melt(c(OAKHRa, OAKARa), na.rm = TRUE)
-OAKRs     <- data.frame(OAKRsMELT$value, stringsAsFactors = FALSE)
-OAKRa     <- data.frame(OAKaMELT$value, stringAsFactors = FALSE)
+LSnyyHRs   <- MLB2018[MLB2018$pitcher1=="Luis Severino", "score1"]
+LSnyyHRa   <- MLB2018[MLB2018$pitcher1=="Luis Severino", "score2"]
+LSnyyARs   <- MLB2018[MLB2018$pitcher2=="Luis Severino", "score2"]
+LSnyyARa   <- MLB2018[MLB2018$pitcher2=="Luis Severino", "score1"]
+LSnyyRMELT <- melt(c(LSevrHRs, LSevrARs), na.rm = TRUE)
+LSnyyAMELT <- melt(c(LSevrHRa, LSevrARa), na.rm = TRUE)
+LSnyyRs    <- data.frame(LSevRMELT$value, stringsAsFactors = FALSE)
+LSnyyRa    <- data.frame(LSevAMELT$value, stringAsFactors = FALSE)
 
-sabermtrkk(NYYRs, NYYRa)
-sabermtrkk(OAKRs, OAKRa)
+OAKHRs     <- MLB2018[MLB2018$team1=="OAK", "score1"]
+OAKHRa     <- MLB2018[MLB2018$team1=="OAK", "score2"]
+OAKARs     <- MLB2018[MLB2018$team2=="OAK", "score2"]
+OAKARa     <- MLB2018[MLB2018$team2=="OAK", "score1"]
+OAKRsMELT  <- melt(c(OAKHRs, OAKARs), na.rm = TRUE)
+OAKaMELT   <- melt(c(OAKHRa, OAKARa), na.rm = TRUE)
+OAKRs      <- data.frame(OAKRsMELT$value, stringsAsFactors = FALSE)
+OAKRa      <- data.frame(OAKaMELT$value, stringAsFactors = FALSE)
+
+LHoakHRs   <- MLB2018[MLB2018$pitcher1=="Liam Hendriks", "score1"]
+LHoakHRa   <- MLB2018[MLB2018$pitcher1=="Liam Hendriks", "score2"]
+LHoakARs   <- MLB2018[MLB2018$pitcher2=="Liam Hendriks", "score2"]
+LHoakARa   <- MLB2018[MLB2018$pitcher2=="Liam Hendriks", "score1"]
+LHoakRMELT <- melt(c(LHoakHRs, LHoakARs), na.rm = TRUE)
+LHoakAMELT <- melt(c(LHoakHRa, LHoakARa), na.rm = TRUE)
+LHoakRs    <- data.frame(LHoakRMELT$value, stringsAsFactors = FALSE)
+LHoakRa    <- data.frame(LHoakAMELT$value, stringAsFactors = FALSE)
+
+print("New York SaberWin%")
+sabermtrkk.WP(NYYRs, NYYRa)
+print("Oakland As Saberwin%")
+sabermtrkk.WP(OAKRs, OAKRa)
+print("Luis Severino SaberWin%")
+sabermtrkk.WP(LSnyyRs, LSnyyRa)
+print("Liam Hendricks SaberWin%")
+sabermtrkk.WP(LHoakRs, LHoakRa)
 ```
 
 

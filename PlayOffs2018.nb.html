@@ -200,33 +200,85 @@ OAK18A &lt;- subset(MLB2018, team2 == &quot;OAK&quot;, select = c(date, playoff,
 <h2><em>Yankees vs. A’s</em></h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuWUFOS1NIUnMgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09XCJOWVlcIiwgXCJzY29yZTFcIl1cbllBTktTSFJhICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTE9PVwiTllZXCIsIFwic2NvcmUyXCJdXG5ZQU5LU0FScyAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0yPT1cIk5ZWVwiLCBcInNjb3JlMlwiXVxuWUFOS1NBUmEgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09XCJOWVlcIiwgXCJzY29yZTFcIl1cbk5ZWVJzTUVMVCA8LSBtZWx0KGMoWUFOS1NIUnMsIFlBTktTQVJzKSwgbmEucm0gPSBUUlVFKVxuTllZUmFNRUxUIDwtIG1lbHQoYyhZQU5LU0hSYSwgWUFOS1NBUmEpLCBuYS5ybSA9IFRSVUUpXG5OWVlScyAgICAgPC0gZGF0YS5mcmFtZShOWVlSc01FTFQkdmFsdWUsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSlcbk5ZWVJhICAgICA8LSBkYXRhLmZyYW1lKE5ZWVJhTUVMVCR2YWx1ZSwgc3RyaW5nQXNGYWN0b3JzID0gRkFMU0UpXG5PQUtIUnMgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09XCJPQUtcIiwgXCJzY29yZTFcIl1cbk9BS0hSYSAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0xPT1cIk9BS1wiLCBcInNjb3JlMlwiXVxuT0FLQVJzICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTI9PVwiT0FLXCIsIFwic2NvcmUyXCJdXG5PQUtBUmEgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09XCJPQUtcIiwgXCJzY29yZTFcIl1cbk9BS1JzTUVMVCA8LSBtZWx0KGMoT0FLSFJzLCBPQUtBUnMpLCBuYS5ybSA9IFRSVUUpXG5PQUthTUVMVCA8LSBtZWx0KGMoT0FLSFJhLCBPQUtBUmEpLCBuYS5ybSA9IFRSVUUpXG5PQUtScyAgICAgPC0gZGF0YS5mcmFtZShPQUtSc01FTFQkdmFsdWUsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSlcbk9BS1JhICAgICA8LSBkYXRhLmZyYW1lKE9BS2FNRUxUJHZhbHVlLCBzdHJpbmdBc0ZhY3RvcnMgPSBGQUxTRSlcbnNhYmVybXRya2soTllZUnMsIE5ZWVJhKVxuYGBgIn0= -->
-<pre class="r"><code>YANKSHRs  &lt;- MLB2018[MLB2018$team1==&quot;NYY&quot;, &quot;score1&quot;]
-YANKSHRa  &lt;- MLB2018[MLB2018$team1==&quot;NYY&quot;, &quot;score2&quot;]
-YANKSARs  &lt;- MLB2018[MLB2018$team2==&quot;NYY&quot;, &quot;score2&quot;]
-YANKSARa  &lt;- MLB2018[MLB2018$team2==&quot;NYY&quot;, &quot;score1&quot;]
-NYYRsMELT &lt;- melt(c(YANKSHRs, YANKSARs), na.rm = TRUE)
-NYYRaMELT &lt;- melt(c(YANKSHRa, YANKSARa), na.rm = TRUE)
-NYYRs     &lt;- data.frame(NYYRsMELT$value, stringsAsFactors = FALSE)
-NYYRa     &lt;- data.frame(NYYRaMELT$value, stringAsFactors = FALSE)
-OAKHRs  &lt;- MLB2018[MLB2018$team1==&quot;OAK&quot;, &quot;score1&quot;]
-OAKHRa  &lt;- MLB2018[MLB2018$team1==&quot;OAK&quot;, &quot;score2&quot;]
-OAKARs  &lt;- MLB2018[MLB2018$team2==&quot;OAK&quot;, &quot;score2&quot;]
-OAKARa  &lt;- MLB2018[MLB2018$team2==&quot;OAK&quot;, &quot;score1&quot;]
-OAKRsMELT &lt;- melt(c(OAKHRs, OAKARs), na.rm = TRUE)
-OAKaMELT &lt;- melt(c(OAKHRa, OAKARa), na.rm = TRUE)
-OAKRs     &lt;- data.frame(OAKRsMELT$value, stringsAsFactors = FALSE)
-OAKRa     &lt;- data.frame(OAKaMELT$value, stringAsFactors = FALSE)
-sabermtrkk(NYYRs, NYYRa)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuWUFOS1NIUnMgICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTE9PVwiTllZXCIsIFwic2NvcmUxXCJdXG5ZQU5LU0hSYSAgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09XCJOWVlcIiwgXCJzY29yZTJcIl1cbllBTktTQVJzICAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0yPT1cIk5ZWVwiLCBcInNjb3JlMlwiXVxuWUFOS1NBUmEgICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTI9PVwiTllZXCIsIFwic2NvcmUxXCJdXG5OWVlSc01FTFQgIDwtIG1lbHQoYyhZQU5LU0hScywgWUFOS1NBUnMpLCBuYS5ybSA9IFRSVUUpXG5OWVlSYU1FTFQgIDwtIG1lbHQoYyhZQU5LU0hSYSwgWUFOS1NBUmEpLCBuYS5ybSA9IFRSVUUpXG5OWVlScyAgICAgIDwtIGRhdGEuZnJhbWUoTllZUnNNRUxUJHZhbHVlLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpXG5OWVlSYSAgICAgIDwtIGRhdGEuZnJhbWUoTllZUmFNRUxUJHZhbHVlLCBzdHJpbmdBc0ZhY3RvcnMgPSBGQUxTRSlcbkxTbnl5SFJzICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIxPT1cIkx1aXMgU2V2ZXJpbm9cIiwgXCJzY29yZTFcIl1cbkxTbnl5SFJhICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIxPT1cIkx1aXMgU2V2ZXJpbm9cIiwgXCJzY29yZTJcIl1cbkxTbnl5QVJzICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIyPT1cIkx1aXMgU2V2ZXJpbm9cIiwgXCJzY29yZTJcIl1cbkxTbnl5QVJhICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIyPT1cIkx1aXMgU2V2ZXJpbm9cIiwgXCJzY29yZTFcIl1cbkxTbnl5Uk1FTFQgPC0gbWVsdChjKExTZXZySFJzLCBMU2V2ckFScyksIG5hLnJtID0gVFJVRSlcbkxTbnl5QU1FTFQgPC0gbWVsdChjKExTZXZySFJhLCBMU2V2ckFSYSksIG5hLnJtID0gVFJVRSlcbkxTbnl5UnMgICAgPC0gZGF0YS5mcmFtZShMU2V2Uk1FTFQkdmFsdWUsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSlcbkxTbnl5UmEgICAgPC0gZGF0YS5mcmFtZShMU2V2QU1FTFQkdmFsdWUsIHN0cmluZ0FzRmFjdG9ycyA9IEZBTFNFKVxuT0FLSFJzICAgICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTE9PVwiT0FLXCIsIFwic2NvcmUxXCJdXG5PQUtIUmEgICAgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09XCJPQUtcIiwgXCJzY29yZTJcIl1cbk9BS0FScyAgICAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0yPT1cIk9BS1wiLCBcInNjb3JlMlwiXVxuT0FLQVJhICAgICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTI9PVwiT0FLXCIsIFwic2NvcmUxXCJdXG5PQUtSc01FTFQgIDwtIG1lbHQoYyhPQUtIUnMsIE9BS0FScyksIG5hLnJtID0gVFJVRSlcbk9BS2FNRUxUICAgPC0gbWVsdChjKE9BS0hSYSwgT0FLQVJhKSwgbmEucm0gPSBUUlVFKVxuT0FLUnMgICAgICA8LSBkYXRhLmZyYW1lKE9BS1JzTUVMVCR2YWx1ZSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKVxuT0FLUmEgICAgICA8LSBkYXRhLmZyYW1lKE9BS2FNRUxUJHZhbHVlLCBzdHJpbmdBc0ZhY3RvcnMgPSBGQUxTRSlcbkxIb2FrSFJzICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIxPT1cIkxpYW0gSGVuZHJpa3NcIiwgXCJzY29yZTFcIl1cbkxIb2FrSFJhICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIxPT1cIkxpYW0gSGVuZHJpa3NcIiwgXCJzY29yZTJcIl1cbkxIb2FrQVJzICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIyPT1cIkxpYW0gSGVuZHJpa3NcIiwgXCJzY29yZTJcIl1cbkxIb2FrQVJhICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIyPT1cIkxpYW0gSGVuZHJpa3NcIiwgXCJzY29yZTFcIl1cbkxIb2FrUk1FTFQgPC0gbWVsdChjKExIb2FrSFJzLCBMSG9ha0FScyksIG5hLnJtID0gVFJVRSlcbkxIb2FrQU1FTFQgPC0gbWVsdChjKExIb2FrSFJhLCBMSG9ha0FSYSksIG5hLnJtID0gVFJVRSlcbkxIb2FrUnMgICAgPC0gZGF0YS5mcmFtZShMSG9ha1JNRUxUJHZhbHVlLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpXG5MSG9ha1JhICAgIDwtIGRhdGEuZnJhbWUoTEhvYWtBTUVMVCR2YWx1ZSwgc3RyaW5nQXNGYWN0b3JzID0gRkFMU0UpXG5wcmludChcIk5ldyBZb3JrIFNhYmVyV2luJVwiKVxuYGBgIn0= -->
+<pre class="r"><code>YANKSHRs   &lt;- MLB2018[MLB2018$team1==&quot;NYY&quot;, &quot;score1&quot;]
+YANKSHRa   &lt;- MLB2018[MLB2018$team1==&quot;NYY&quot;, &quot;score2&quot;]
+YANKSARs   &lt;- MLB2018[MLB2018$team2==&quot;NYY&quot;, &quot;score2&quot;]
+YANKSARa   &lt;- MLB2018[MLB2018$team2==&quot;NYY&quot;, &quot;score1&quot;]
+NYYRsMELT  &lt;- melt(c(YANKSHRs, YANKSARs), na.rm = TRUE)
+NYYRaMELT  &lt;- melt(c(YANKSHRa, YANKSARa), na.rm = TRUE)
+NYYRs      &lt;- data.frame(NYYRsMELT$value, stringsAsFactors = FALSE)
+NYYRa      &lt;- data.frame(NYYRaMELT$value, stringAsFactors = FALSE)
+LSnyyHRs   &lt;- MLB2018[MLB2018$pitcher1==&quot;Luis Severino&quot;, &quot;score1&quot;]
+LSnyyHRa   &lt;- MLB2018[MLB2018$pitcher1==&quot;Luis Severino&quot;, &quot;score2&quot;]
+LSnyyARs   &lt;- MLB2018[MLB2018$pitcher2==&quot;Luis Severino&quot;, &quot;score2&quot;]
+LSnyyARa   &lt;- MLB2018[MLB2018$pitcher2==&quot;Luis Severino&quot;, &quot;score1&quot;]
+LSnyyRMELT &lt;- melt(c(LSevrHRs, LSevrARs), na.rm = TRUE)
+LSnyyAMELT &lt;- melt(c(LSevrHRa, LSevrARa), na.rm = TRUE)
+LSnyyRs    &lt;- data.frame(LSevRMELT$value, stringsAsFactors = FALSE)
+LSnyyRa    &lt;- data.frame(LSevAMELT$value, stringAsFactors = FALSE)
+OAKHRs     &lt;- MLB2018[MLB2018$team1==&quot;OAK&quot;, &quot;score1&quot;]
+OAKHRa     &lt;- MLB2018[MLB2018$team1==&quot;OAK&quot;, &quot;score2&quot;]
+OAKARs     &lt;- MLB2018[MLB2018$team2==&quot;OAK&quot;, &quot;score2&quot;]
+OAKARa     &lt;- MLB2018[MLB2018$team2==&quot;OAK&quot;, &quot;score1&quot;]
+OAKRsMELT  &lt;- melt(c(OAKHRs, OAKARs), na.rm = TRUE)
+OAKaMELT   &lt;- melt(c(OAKHRa, OAKARa), na.rm = TRUE)
+OAKRs      &lt;- data.frame(OAKRsMELT$value, stringsAsFactors = FALSE)
+OAKRa      &lt;- data.frame(OAKaMELT$value, stringAsFactors = FALSE)
+LHoakHRs   &lt;- MLB2018[MLB2018$pitcher1==&quot;Liam Hendriks&quot;, &quot;score1&quot;]
+LHoakHRa   &lt;- MLB2018[MLB2018$pitcher1==&quot;Liam Hendriks&quot;, &quot;score2&quot;]
+LHoakARs   &lt;- MLB2018[MLB2018$pitcher2==&quot;Liam Hendriks&quot;, &quot;score2&quot;]
+LHoakARa   &lt;- MLB2018[MLB2018$pitcher2==&quot;Liam Hendriks&quot;, &quot;score1&quot;]
+LHoakRMELT &lt;- melt(c(LHoakHRs, LHoakARs), na.rm = TRUE)
+LHoakAMELT &lt;- melt(c(LHoakHRa, LHoakARa), na.rm = TRUE)
+LHoakRs    &lt;- data.frame(LHoakRMELT$value, stringsAsFactors = FALSE)
+LHoakRa    &lt;- data.frame(LHoakAMELT$value, stringAsFactors = FALSE)
+print(&quot;New York SaberWin%&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTmV3IFlvcmsgU2FiZXJXaW4lXCJcbiJ9 -->
+<pre><code>[1] &quot;New York SaberWin%&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FiZXJtdHJray5XUChOWVlScywgTllZUmEpXG5gYGAifQ== -->
+<pre class="r"><code>sabermtrkk.WP(NYYRs, NYYRa)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNjE4MDQ0NFxuIn0= -->
 <pre><code>[1] 0.6180444</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FiZXJtdHJrayhPQUtScywgT0FLUmEpXG5gYGAifQ== -->
-<pre class="r"><code>sabermtrkk(OAKRs, OAKRa)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoXCJPYWtsYW5kIEFzIFNhYmVyd2luJVwiKVxuYGBgIn0= -->
+<pre class="r"><code>print(&quot;Oakland As Saberwin%&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiT2FrbGFuZCBBcyBTYWJlcndpbiVcIlxuIn0= -->
+<pre><code>[1] &quot;Oakland As Saberwin%&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FiZXJtdHJray5XUChPQUtScywgT0FLUmEpXG5gYGAifQ== -->
+<pre class="r"><code>sabermtrkk.WP(OAKRs, OAKRa)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTkyNjY3MVxuIn0= -->
 <pre><code>[1] 0.5926671</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoXCJMdWlzIFNldmVyaW5vIFNhYmVyV2luJVwiKVxuYGBgIn0= -->
+<pre class="r"><code>print(&quot;Luis Severino SaberWin%&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTHVpcyBTZXZlcmlubyBTYWJlcldpbiVcIlxuIn0= -->
+<pre><code>[1] &quot;Luis Severino SaberWin%&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FiZXJtdHJray5XUChMU255eVJzLCBMU255eVJhKVxuYGBgIn0= -->
+<pre class="r"><code>sabermtrkk.WP(LSnyyRs, LSnyyRa)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNzE1MDQxM1xuIn0= -->
+<pre><code>[1] 0.7150413</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoXCJMaWFtIEhlbmRyaWNrcyBTYWJlcldpbiVcIilcbmBgYCJ9 -->
+<pre class="r"><code>print(&quot;Liam Hendricks SaberWin%&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTGlhbSBIZW5kcmlja3MgU2FiZXJXaW4lXCJcbiJ9 -->
+<pre><code>[1] &quot;Liam Hendricks SaberWin%&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FiZXJtdHJray5XUChMSG9ha1JzLCBMSG9ha1JhKVxuYGBgIn0= -->
+<pre class="r"><code>sabermtrkk.WP(LHoakRs, LHoakRa)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTI3NzU2NFxuIn0= -->
+<pre><code>[1] 0.5277564</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -234,7 +286,7 @@ sabermtrkk(NYYRs, NYYRa)</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTUxCIFBMQVlPRkZTIDIwMTgiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCgotLS0KTGlicmFyeQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkocmVzaGFwZSkKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocGx5cikKLS0tCmBgYHtyfQpNTEIyMDE4ciA8LSBzdWJzZXQobWxiX2Vsbywgc2Vhc29uID09ICIyMDE4Iiwgc2VsZWN0ID0gYyhkYXRlLCBwbGF5b2ZmLCBzZWFzb24sIHRlYW0xLCB0ZWFtMiwgcGl0Y2hlcjEsIHBpdGNoZXIyLCBzY29yZTEsIHNjb3JlMikpCgpNTEIyMDE4IDwtIE1MQjIwMTggJT4lIGNsZWFuX25hbWVzKCkgJT4lIG11dGF0ZSggdGVhbTEgPSBhcy5mYWN0b3IodGVhbTEpLCB0ZWFtMiA9IGFzLmZhY3Rvcih0ZWFtMikpCmBgYAoKCgoKYGBge3J9CllBTktTMThIIDwtIHN1YnNldChNTEIyMDE4LCB0ZWFtMSA9PSAiTllZIiwgc2VsZWN0ID0gYyhkYXRlLCBwbGF5b2ZmLCBzZWFzb24sIHRlYW0xLCB0ZWFtMiwgcGl0Y2hlcjEsIHBpdGNoZXIyLCBzY29yZTEsIHNjb3JlMikpCgpZQU5LUzE4QSA8LSBzdWJzZXQoTUxCMjAxOCwgdGVhbTIgPT0gIk5ZWSIsIHNlbGVjdCA9IGMoZGF0ZSwgcGxheW9mZiwgc2Vhc29uLCB0ZWFtMSwgdGVhbTIsIHBpdGNoZXIxLCBwaXRjaGVyMiwgc2NvcmUxLCBzY29yZTIpKQoKT0FLMThIIDwtIHN1YnNldChNTEIyMDE4LCB0ZWFtMSA9PSAiT0FLIiwgc2VsZWN0ID0gYyhkYXRlLCBwbGF5b2ZmLCBzZWFzb24sIHRlYW0xLCB0ZWFtMiwgcGl0Y2hlcjEsIHBpdGNoZXIyLCBzY29yZTEsIHNjb3JlMikpCgpPQUsxOEEgPC0gc3Vic2V0KE1MQjIwMTgsIHRlYW0yID09ICJPQUsiLCBzZWxlY3QgPSBjKGRhdGUsIHBsYXlvZmYsIHNlYXNvbiwgdGVhbTEsIHRlYW0yLCBwaXRjaGVyMSwgcGl0Y2hlcjIsIHNjb3JlMSwgc2NvcmUyKSkKYGBgCgoKIyoqKldpbGQgQ2FyZCBHYW1lcyoqKgoKCiMjKllhbmtlZXMgdnMuIEEncyoKCmBgYHtyfQpZQU5LU0hScyAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0xPT0iTllZIiwgInNjb3JlMSJdCllBTktTSFJhICA8LSBNTEIyMDE4W01MQjIwMTgkdGVhbTE9PSJOWVkiLCAic2NvcmUyIl0KWUFOS1NBUnMgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09Ik5ZWSIsICJzY29yZTIiXQpZQU5LU0FSYSAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0yPT0iTllZIiwgInNjb3JlMSJdCk5ZWVJzTUVMVCA8LSBtZWx0KGMoWUFOS1NIUnMsIFlBTktTQVJzKSwgbmEucm0gPSBUUlVFKQpOWVlSYU1FTFQgPC0gbWVsdChjKFlBTktTSFJhLCBZQU5LU0FSYSksIG5hLnJtID0gVFJVRSkKTllZUnMgICAgIDwtIGRhdGEuZnJhbWUoTllZUnNNRUxUJHZhbHVlLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpCk5ZWVJhICAgICA8LSBkYXRhLmZyYW1lKE5ZWVJhTUVMVCR2YWx1ZSwgc3RyaW5nQXNGYWN0b3JzID0gRkFMU0UpCgpPQUtIUnMgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09Ik9BSyIsICJzY29yZTEiXQpPQUtIUmEgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09Ik9BSyIsICJzY29yZTIiXQpPQUtBUnMgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09Ik9BSyIsICJzY29yZTIiXQpPQUtBUmEgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09Ik9BSyIsICJzY29yZTEiXQpPQUtSc01FTFQgPC0gbWVsdChjKE9BS0hScywgT0FLQVJzKSwgbmEucm0gPSBUUlVFKQpPQUthTUVMVCA8LSBtZWx0KGMoT0FLSFJhLCBPQUtBUmEpLCBuYS5ybSA9IFRSVUUpCk9BS1JzICAgICA8LSBkYXRhLmZyYW1lKE9BS1JzTUVMVCR2YWx1ZSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQpPQUtSYSAgICAgPC0gZGF0YS5mcmFtZShPQUthTUVMVCR2YWx1ZSwgc3RyaW5nQXNGYWN0b3JzID0gRkFMU0UpCgpzYWJlcm10cmtrKE5ZWVJzLCBOWVlSYSkKc2FiZXJtdHJrayhPQUtScywgT0FLUmEpCmBgYAoKCgoKCgoKCgoKCgoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTUxCIFBMQVlPRkZTIDIwMTgiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCgotLS0KTGlicmFyeQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkocmVzaGFwZSkKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkocGx5cikKLS0tCmBgYHtyfQpNTEIyMDE4ciA8LSBzdWJzZXQobWxiX2Vsbywgc2Vhc29uID09ICIyMDE4Iiwgc2VsZWN0ID0gYyhkYXRlLCBwbGF5b2ZmLCBzZWFzb24sIHRlYW0xLCB0ZWFtMiwgcGl0Y2hlcjEsIHBpdGNoZXIyLCBzY29yZTEsIHNjb3JlMikpCgpNTEIyMDE4IDwtIE1MQjIwMTggJT4lIGNsZWFuX25hbWVzKCkgJT4lIG11dGF0ZSggdGVhbTEgPSBhcy5mYWN0b3IodGVhbTEpLCB0ZWFtMiA9IGFzLmZhY3Rvcih0ZWFtMikpCmBgYAoKCgoKYGBge3J9CllBTktTMThIIDwtIHN1YnNldChNTEIyMDE4LCB0ZWFtMSA9PSAiTllZIiwgc2VsZWN0ID0gYyhkYXRlLCBwbGF5b2ZmLCBzZWFzb24sIHRlYW0xLCB0ZWFtMiwgcGl0Y2hlcjEsIHBpdGNoZXIyLCBzY29yZTEsIHNjb3JlMikpCgpZQU5LUzE4QSA8LSBzdWJzZXQoTUxCMjAxOCwgdGVhbTIgPT0gIk5ZWSIsIHNlbGVjdCA9IGMoZGF0ZSwgcGxheW9mZiwgc2Vhc29uLCB0ZWFtMSwgdGVhbTIsIHBpdGNoZXIxLCBwaXRjaGVyMiwgc2NvcmUxLCBzY29yZTIpKQoKT0FLMThIIDwtIHN1YnNldChNTEIyMDE4LCB0ZWFtMSA9PSAiT0FLIiwgc2VsZWN0ID0gYyhkYXRlLCBwbGF5b2ZmLCBzZWFzb24sIHRlYW0xLCB0ZWFtMiwgcGl0Y2hlcjEsIHBpdGNoZXIyLCBzY29yZTEsIHNjb3JlMikpCgpPQUsxOEEgPC0gc3Vic2V0KE1MQjIwMTgsIHRlYW0yID09ICJPQUsiLCBzZWxlY3QgPSBjKGRhdGUsIHBsYXlvZmYsIHNlYXNvbiwgdGVhbTEsIHRlYW0yLCBwaXRjaGVyMSwgcGl0Y2hlcjIsIHNjb3JlMSwgc2NvcmUyKSkKYGBgCgoKIyoqKldpbGQgQ2FyZCBHYW1lcyoqKgoKCiMjKllhbmtlZXMgdnMuIEEncyoKCmBgYHtyfQpZQU5LU0hScyAgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09Ik5ZWSIsICJzY29yZTEiXQpZQU5LU0hSYSAgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMT09Ik5ZWSIsICJzY29yZTIiXQpZQU5LU0FScyAgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09Ik5ZWSIsICJzY29yZTIiXQpZQU5LU0FSYSAgIDwtIE1MQjIwMThbTUxCMjAxOCR0ZWFtMj09Ik5ZWSIsICJzY29yZTEiXQpOWVlSc01FTFQgIDwtIG1lbHQoYyhZQU5LU0hScywgWUFOS1NBUnMpLCBuYS5ybSA9IFRSVUUpCk5ZWVJhTUVMVCAgPC0gbWVsdChjKFlBTktTSFJhLCBZQU5LU0FSYSksIG5hLnJtID0gVFJVRSkKTllZUnMgICAgICA8LSBkYXRhLmZyYW1lKE5ZWVJzTUVMVCR2YWx1ZSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQpOWVlSYSAgICAgIDwtIGRhdGEuZnJhbWUoTllZUmFNRUxUJHZhbHVlLCBzdHJpbmdBc0ZhY3RvcnMgPSBGQUxTRSkKCkxTbnl5SFJzICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIxPT0iTHVpcyBTZXZlcmlubyIsICJzY29yZTEiXQpMU255eUhSYSAgIDwtIE1MQjIwMThbTUxCMjAxOCRwaXRjaGVyMT09Ikx1aXMgU2V2ZXJpbm8iLCAic2NvcmUyIl0KTFNueXlBUnMgICA8LSBNTEIyMDE4W01MQjIwMTgkcGl0Y2hlcjI9PSJMdWlzIFNldmVyaW5vIiwgInNjb3JlMiJdCkxTbnl5QVJhICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIyPT0iTHVpcyBTZXZlcmlubyIsICJzY29yZTEiXQpMU255eVJNRUxUIDwtIG1lbHQoYyhMU2V2ckhScywgTFNldnJBUnMpLCBuYS5ybSA9IFRSVUUpCkxTbnl5QU1FTFQgPC0gbWVsdChjKExTZXZySFJhLCBMU2V2ckFSYSksIG5hLnJtID0gVFJVRSkKTFNueXlScyAgICA8LSBkYXRhLmZyYW1lKExTZXZSTUVMVCR2YWx1ZSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQpMU255eVJhICAgIDwtIGRhdGEuZnJhbWUoTFNldkFNRUxUJHZhbHVlLCBzdHJpbmdBc0ZhY3RvcnMgPSBGQUxTRSkKCk9BS0hScyAgICAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0xPT0iT0FLIiwgInNjb3JlMSJdCk9BS0hSYSAgICAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0xPT0iT0FLIiwgInNjb3JlMiJdCk9BS0FScyAgICAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0yPT0iT0FLIiwgInNjb3JlMiJdCk9BS0FSYSAgICAgPC0gTUxCMjAxOFtNTEIyMDE4JHRlYW0yPT0iT0FLIiwgInNjb3JlMSJdCk9BS1JzTUVMVCAgPC0gbWVsdChjKE9BS0hScywgT0FLQVJzKSwgbmEucm0gPSBUUlVFKQpPQUthTUVMVCAgIDwtIG1lbHQoYyhPQUtIUmEsIE9BS0FSYSksIG5hLnJtID0gVFJVRSkKT0FLUnMgICAgICA8LSBkYXRhLmZyYW1lKE9BS1JzTUVMVCR2YWx1ZSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQpPQUtSYSAgICAgIDwtIGRhdGEuZnJhbWUoT0FLYU1FTFQkdmFsdWUsIHN0cmluZ0FzRmFjdG9ycyA9IEZBTFNFKQoKTEhvYWtIUnMgICA8LSBNTEIyMDE4W01MQjIwMTgkcGl0Y2hlcjE9PSJMaWFtIEhlbmRyaWtzIiwgInNjb3JlMSJdCkxIb2FrSFJhICAgPC0gTUxCMjAxOFtNTEIyMDE4JHBpdGNoZXIxPT0iTGlhbSBIZW5kcmlrcyIsICJzY29yZTIiXQpMSG9ha0FScyAgIDwtIE1MQjIwMThbTUxCMjAxOCRwaXRjaGVyMj09IkxpYW0gSGVuZHJpa3MiLCAic2NvcmUyIl0KTEhvYWtBUmEgICA8LSBNTEIyMDE4W01MQjIwMTgkcGl0Y2hlcjI9PSJMaWFtIEhlbmRyaWtzIiwgInNjb3JlMSJdCkxIb2FrUk1FTFQgPC0gbWVsdChjKExIb2FrSFJzLCBMSG9ha0FScyksIG5hLnJtID0gVFJVRSkKTEhvYWtBTUVMVCA8LSBtZWx0KGMoTEhvYWtIUmEsIExIb2FrQVJhKSwgbmEucm0gPSBUUlVFKQpMSG9ha1JzICAgIDwtIGRhdGEuZnJhbWUoTEhvYWtSTUVMVCR2YWx1ZSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQpMSG9ha1JhICAgIDwtIGRhdGEuZnJhbWUoTEhvYWtBTUVMVCR2YWx1ZSwgc3RyaW5nQXNGYWN0b3JzID0gRkFMU0UpCgpwcmludCgiTmV3IFlvcmsgU2FiZXJXaW4lIikKc2FiZXJtdHJray5XUChOWVlScywgTllZUmEpCnByaW50KCJPYWtsYW5kIEFzIFNhYmVyd2luJSIpCnNhYmVybXRya2suV1AoT0FLUnMsIE9BS1JhKQpwcmludCgiTHVpcyBTZXZlcmlubyBTYWJlcldpbiUiKQpzYWJlcm10cmtrLldQKExTbnl5UnMsIExTbnl5UmEpCnByaW50KCJMaWFtIEhlbmRyaWNrcyBTYWJlcldpbiUiKQpzYWJlcm10cmtrLldQKExIb2FrUnMsIExIb2FrUmEpCmBgYAoKCgoKCgoKCgoKCgoKCg==</div>
 
 
 

@@ -6,7 +6,7 @@
 #' @param Rs Vector of numbers for Run's Scored in a season
 #' @param RsA Vector of numbers for Run's Scored in a season
 #' @return The predictied win Percentage for a game written as integer
-sabermtrkk <- function(x, y){
+sabermtrkk.WP <- function(x, y){
   z <- (sum(x, na.rm = TRUE))
   u <- (sum(y, na.rm = TRUE))
   Rs2 <- (z)^2
