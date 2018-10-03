@@ -1,0 +1,74 @@
+---
+title: "MLB PLAYOFFS 2018"
+output: html_notebook
+---
+
+
+---
+Library
+library(janitor)
+library(reshape)
+library(tidyverse)
+library(plyr)
+---
+```{r}
+MLB2018r <- subset(mlb_elo, season == "2018", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+
+MLB2018 <- MLB2018 %>% clean_names() %>% mutate( team1 = as.factor(team1), team2 = as.factor(team2))
+```
+
+
+
+
+```{r}
+YANKS18H <- subset(MLB2018, team1 == "NYY", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+
+YANKS18A <- subset(MLB2018, team2 == "NYY", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+
+OAK18H <- subset(MLB2018, team1 == "OAK", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+
+OAK18A <- subset(MLB2018, team2 == "OAK", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+```
+
+
+#***Wild Card Games***
+
+
+##*Yankees vs. A's*
+
+```{r}
+YANKSHRs  <- MLB2018[MLB2018$team1=="NYY", "score1"]
+YANKSHRa  <- MLB2018[MLB2018$team1=="NYY", "score2"]
+YANKSARs  <- MLB2018[MLB2018$team2=="NYY", "score2"]
+YANKSARa  <- MLB2018[MLB2018$team2=="NYY", "score1"]
+NYYRsMELT <- melt(c(YANKSHRs, YANKSARs), na.rm = TRUE)
+NYYRaMELT <- melt(c(YANKSHRa, YANKSARa), na.rm = TRUE)
+NYYRs     <- data.frame(NYYRsMELT$value, stringsAsFactors = FALSE)
+NYYRa     <- data.frame(NYYRaMELT$value, stringAsFactors = FALSE)
+
+OAKHRs  <- MLB2018[MLB2018$team1=="OAK", "score1"]
+OAKHRa  <- MLB2018[MLB2018$team1=="OAK", "score2"]
+OAKARs  <- MLB2018[MLB2018$team2=="OAK", "score2"]
+OAKARa  <- MLB2018[MLB2018$team2=="OAK", "score1"]
+OAKRsMELT <- melt(c(OAKHRs, OAKARs), na.rm = TRUE)
+OAKaMELT <- melt(c(OAKHRa, OAKARa), na.rm = TRUE)
+OAKRs     <- data.frame(OAKRsMELT$value, stringsAsFactors = FALSE)
+OAKRa     <- data.frame(OAKaMELT$value, stringAsFactors = FALSE)
+
+sabermtrkk(NYYRs, NYYRa)
+sabermtrkk(OAKRs, OAKRa)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
