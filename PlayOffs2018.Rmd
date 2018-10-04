@@ -5,6 +5,14 @@ editor_options:
   chunk_output_type: inline
 ---
 
+```{r include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r include=FALSE}
+library(ggplot)
+```
+
 
 ```{r echo = FALSE}
 MLB2018r <- subset(mlb_elo, season == "2018", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
@@ -29,7 +37,7 @@ OAK18A <- subset(MLB2018, team2 == "OAK", select = c(date, playoff, season, team
 #***Wild Card Games***
 
 
-##Yankees vs. A's
+##***Yankees vs. A's***
 ###*$161,305,917 vs. $62,652,500*
 ```{r echo = FALSE}
 YANKSHRs   <- MLB2018[MLB2018$team1=="NYY", "score1"]
@@ -84,7 +92,7 @@ sabermtrkk.WP(LHoakRs, LHoakRa)
 
 
 ```{r echo = FALSE}
-boxplot(c(NYYRa, OAKRa, NYYRs, OAKRs), horizontal = TRUE, names = c("NYY.RA", "OAK.RA", "NYY.Rs", "OAK.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "midnightblue", "forestgreen", "midnightblue", "forestgreen"), notch = TRUE, outline = FALSE)
+boxplot(c(NYYRa, OAKRa, NYYRs, OAKRs), horizontal = TRUE, names = c("NYY.RA", "OAK.RA", "NYY.Rs", "OAK.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "midnightblue", "forestgreen", "midnightblue", "forestgreen"), notch = TRUE, outline = FALSE, border = "goldenrod")
 ```
 
 
@@ -114,6 +122,140 @@ mean(OAKvYANKS$value, na.rm = TRUE)
 print("NYY")
 mean(YANKSvOAK$value, na.rm = TRUE)
 ```
+
+###Result
+
+####NYY 7 OAK 6
+
+#&nbsp;
+
+#&nbsp;
+
+#&nbsp;
+
+
+#***Yankees @ Red Sox***
+
+###***American League Division Series***
+
+```{r echo = FALSE}
+#Red Sox 
+
+REDSOX18H <- subset(MLB2018, team1 == "BOS", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+
+REDSOX18A <- subset(MLB2018, team2 == "BOS", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+
+BosRHRs    <- MLB2018[MLB2018$team1=="BOS", "score1"]
+BosRHRa    <- MLB2018[MLB2018$team1=="BOS", "score2"]
+BosRARs    <- MLB2018[MLB2018$team2=="BOS", "score2"]
+BosRARa    <- MLB2018[MLB2018$team2=="BOS", "score1"]
+BOSRsMELT  <- melt(c(BosRHRs, BosRARs), na.rm = TRUE)
+BOSRaMELT  <- melt(c(BosRHRa, BosRARa), na.rm = TRUE)
+BOSRs      <- data.frame(BOSRsMELT$value)
+BOSRa      <- data.frame(BOSRaMELT$value)
+
+#RED SOX PITCHERS
+#Chris Sale
+CSbosHRs   <- MLB2018[MLB2018$pitcher1=="Chris Sale", "score1"]
+CSbosHRa   <- MLB2018[MLB2018$pitcher1=="Chris Sale", "score2"]
+CSbosARs   <- MLB2018[MLB2018$pitcher2=="Chris Sale", "score2"]
+CSbosARa   <- MLB2018[MLB2018$pitcher2=="Chris Sale", "score1"]
+CSbosRMELT <- melt(c(CSbosHRs, CSbosARs), na.rm = TRUE)
+CSbosAMELT <- melt(c(CSbosHRa, CSbosARa), na.rm = TRUE)
+CSbosRs    <- data.frame(CSbosRMELT$value)
+CSbosRa    <- data.frame(CSbosAMELT$value)
+
+#David Price
+DPbosHRs   <- MLB2018[MLB2018$pitcher1=="David Price", "score1"]
+DPbosHRa   <- MLB2018[MLB2018$pitcher1=="David Price", "score2"]
+DPbosARs   <- MLB2018[MLB2018$pitcher2=="David Price", "score2"]
+DPbosARa   <- MLB2018[MLB2018$pitcher2=="David Price", "score1"]
+DPbosRMELT <- melt(c(DPbosHRs, DPbosARs), na.rm = TRUE)
+DPbosAMELT <- melt(c(DPbosHRa, DPbosARa), na.rm = TRUE)
+DPbosRs    <- data.frame(DPbosRMELT$value)
+DPbosRa    <- data.frame(DPbosAMELT$value)
+
+#Rick Porcello
+RPbosHRs   <- MLB2018[MLB2018$pitcher1=="Rick Porcello", "score1"]
+RPbosHRa   <- MLB2018[MLB2018$pitcher1=="Rick Porcello", "score2"]
+RPbosARs   <- MLB2018[MLB2018$pitcher2=="Rick Porcello", "score2"]
+RPbosARa   <- MLB2018[MLB2018$pitcher2=="Rick Porcello", "score1"]
+RPbosRMELT <- melt(c(RPbosHRs, RPbosARs), na.rm = TRUE)
+RPbosAMELT <- melt(c(RPbosHRa, RPbosARa), na.rm = TRUE)
+RPbosRs    <- data.frame(RPbosRMELT$value)
+RPbosRa    <- data.frame(RPbosAMELT$value)
+
+#Yankees Pitchers
+#TBD
+
+
+#Yankees vs. Red Sox 2018
+NYY18BOS     <- subset(YANKS18H, team2=="BOS", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2), na.rm = TRUE)
+
+BOS18NYY     <- subset(YANKS18A, team1=="BOS", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2))
+
+BOSvNYY      <- melt(c(NYY18OAK$score1, OAK18NYY$score2))
+
+NYYvBOS      <- melt(c(NYY18OAK$score2, OAK18NYY$score1))
+```
+
+####Sabermetric Win Percentage
+```{r echo = FALSE}
+print("Boston")
+sabermtrkk.WP(BOSRs, BOSRa)
+print("Yankees")
+sabermtrkk.WP(NYYRs, NYYRa)
+```
+
+####Red Sox and Yankes All
+
+```{r echo = FALSE}
+boxplot(c(NYYRa, BOSRa, NYYRs, BOSRs), horizontal = TRUE, names = c("NYY.RA", "BOS.RA", "NYY.Rs", "BOS.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "midnightblue", "red3", "midnightblue", "red3"), notch = TRUE, outline = FALSE, border = "darkgrey")
+
+```
+
+####Red Sox vs. Yankees '18
+
+```{r echo = FALSE}
+boxplot(c(BOSvNYY, NYYvBOS), horizontal = TRUE, names = c("BOS", "NYY"), main = "BOS vs NYY '18", sub = "Runs Scored against eachother", col = c("red3", "midnightblue"), border = "darkgrey")
+```
+
+
+
+####Friday @FENWAY
+####*Chris Sale vs. TBD Sabermetric %*
+
+```{r echo = FALSE}
+print("Chris Sale")
+sabermtrkk.WP(CSbosRs, CSbosRa)
+print("TBD")
+print("TBD")
+```
+
+
+####Saturday @FENWAY
+####*David Price vs. TBD Sabermetric %*
+
+```{r echo=FALSE}
+print("David Price")
+sabermtrkk.WP(DPbosRs, DPbosRa)
+print("TBD")
+print("TBD")
+```
+
+####Monday @ YANKEE STADIUM
+####*TBD vs. Rick Porcello*
+
+```{r}
+print("TBD")
+print("TBD")
+print("Rick Porcello (BOS)")
+sabermtrkk.WP(RPbosRs, RPbosRa)
+```
+
+
+
+
 
 
 
