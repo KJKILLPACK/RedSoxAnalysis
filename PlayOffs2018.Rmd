@@ -10,14 +10,13 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r include=FALSE}
-library(ggplot)
 ```
 
 
 ```{r echo = FALSE}
-MLB2018r <- subset(mlb_elo, season == "2018", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+MLB2018r <- subset(mlb_elo, season == "2018")
 
-MLB2018 <- MLB2018 %>% clean_names() %>% mutate( team1 = as.factor(team1), team2 = as.factor(team2))
+MLB2018 <- MLB2018r %>% clean_names() %>% mutate( team1 = as.factor(team1), team2 = as.factor(team2))
 ```
 
 
@@ -51,10 +50,10 @@ LSnyyHRs   <- MLB2018[MLB2018$pitcher1=="Luis Severino", "score1"]
 LSnyyHRa   <- MLB2018[MLB2018$pitcher1=="Luis Severino", "score2"]
 LSnyyARs   <- MLB2018[MLB2018$pitcher2=="Luis Severino", "score2"]
 LSnyyARa   <- MLB2018[MLB2018$pitcher2=="Luis Severino", "score1"]
-LSnyyRMELT <- melt(c(LSevrHRs, LSevrARs), na.rm = TRUE)
-LSnyyAMELT <- melt(c(LSevrHRa, LSevrARa), na.rm = TRUE)
-LSnyyRs    <- data.frame(LSevRMELT$value)
-LSnyyRa    <- data.frame(LSevAMELT$value)
+LSnyyRMELT <- melt(c(LSnyyHRs, LSnyyARs), na.rm = TRUE)
+LSnyyAMELT <- melt(c(LSnyyHRa, LSnyyARa), na.rm = TRUE)
+LSnyyRs    <- data.frame(LSnyyRMELT$value)
+LSnyyRa    <- data.frame(LSnyyAMELT$value)
 
 OAKHRs     <- MLB2018[MLB2018$team1=="OAK", "score1"]
 OAKHRa     <- MLB2018[MLB2018$team1=="OAK", "score2"]
@@ -184,7 +183,25 @@ RPbosRs    <- data.frame(RPbosRMELT$value)
 RPbosRa    <- data.frame(RPbosAMELT$value)
 
 #Yankees Pitchers
-#TBD
+#J.A. Happ
+JHnyyHRs   <- MLB2018[MLB2018$pitcher1=="J.A. Happ", "score1"]
+JHnyyHRa   <- MLB2018[MLB2018$pitcher1=="J.A. Happ", "score2"]
+JHnyyARs   <- MLB2018[MLB2018$pitcher2=="J.A. Happ", "score2"]
+JHnyyARa   <- MLB2018[MLB2018$pitcher2=="J.A. Happ", "score1"]
+JHnyyRMELT <- melt(c(JHnyyHRs, JHnyyARs), na.rm = TRUE)
+JHnyyAMELT <- melt(c(JHnyyHRa, JHnyyARa), na.rm = TRUE)
+JHnyyRs    <- data.frame(JHnyyRMELT$value)
+JHnyyRa    <- data.frame(JHnyyAMELT$value)
+
+#Masahiro Tanaka
+MTnyyHRs   <- MLB2018[MLB2018$pitcher1=="Masahiro Tanakap", "score1"]
+MTnyyHRa   <- MLB2018[MLB2018$pitcher1=="Masahiro Tanaka", "score2"]
+MTnyyARs   <- MLB2018[MLB2018$pitcher2=="Masahiro Tanaka", "score2"]
+MTnyyARa   <- MLB2018[MLB2018$pitcher2=="Masahiro Tanaka", "score1"]
+MTnyyRMELT <- melt(c(MTnyyHRs, MTnyyARs), na.rm = TRUE)
+MTnyyAMELT <- melt(c(MTnyyHRa, MTnyyARa), na.rm = TRUE)
+MTnyyRs    <- data.frame(MTnyyRMELT$value)
+MTnyyRa    <- data.frame(MTnyyAMELT$value)
 
 
 #Yankees vs. Red Sox 2018
@@ -196,6 +213,21 @@ BOSvNYY      <- melt(c(NYY18OAK$score1, OAK18NYY$score2))
 
 NYYvBOS      <- melt(c(NYY18OAK$score2, OAK18NYY$score1))
 ```
+
+
+```{r}
+BOSvNYY18DS <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(playoff == "2") %>%
+  filter(team1 == "BOS" | team1 == "NYY") %>%
+  filter(season == "2018") %>%
+  arrange(date) %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+BOSvNYY18DS
+```
+
+
 
 ####Sabermetric Win Percentage
 ```{r echo = FALSE}
@@ -221,13 +253,13 @@ boxplot(c(BOSvNYY, NYYvBOS), horizontal = TRUE, names = c("BOS", "NYY"), main = 
 
 
 ####Friday @FENWAY
-####*Chris Sale vs. TBD Sabermetric %*
+####*Chris Sale vs. J.A. Happ Sabermetric %*
 
 ```{r echo = FALSE}
 print("Chris Sale")
 sabermtrkk.WP(CSbosRs, CSbosRa)
-print("TBD")
-print("TBD")
+print("J.A. Happ")
+sabermtrkk.WP(JHnyyRs, JHnyyRa)
 ```
 
 
@@ -237,8 +269,8 @@ print("TBD")
 ```{r echo=FALSE}
 print("David Price")
 sabermtrkk.WP(DPbosRs, DPbosRa)
-print("TBD")
-print("TBD")
+print("Masahiro Tanaka")
+sabermtrkk.WP(MTnyyRs, MTnyyRa)
 ```
 
 ####Monday @ YANKEE STADIUM
@@ -272,6 +304,19 @@ HOU18A <- subset(MLB2018, team2 == "HOU", select = c(date, playoff, season, team
 CLE18H <- subset(MLB2018, team1 == "CLE", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
 
 CLE18A <- subset(MLB2018, team2 == "CLE", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
+```
+
+#####Series Viewer
+```{r}
+CLEvHOU18DS <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(playoff == "2") %>%
+  filter(team1 == "CLE" | team1 == "HOU") %>%
+  filter(season == "2018") %>%
+  arrange(date) %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+CLEvHOU18DS
 ```
 
 ```{r}
@@ -331,7 +376,7 @@ sabermtrkk.WP(CLERs, CLERa)
 ####Houston '18 Season and Cleavland '18 Season
 
 ```{r}
-boxplot(c(HOURa, CLERa, HOURs, CLERs), horizontal = TRUE, names = c("HOU.RA", "CLE.RA", "HOU.Rs", "CLE.Rs"), main = "Astros/Indians", sub = "Runs Scored vs. Runs Allowed", col = c( "darkorange2", "red", "darkorange2", "red"), notch = TRUE, outline = FALSE, border = "blue4")
+boxplot(c(HOURa, CLERa, HOURs, CLERs), horizontal = TRUE, names = c("HOU.RA", "CLE.RA", "HOU.Rs", "CLE.Rs"), main = "Astros/Indians", sub = "Runs Scored vs. Runs Allowed", col = c( "#EB6E1F", "#E31937", "#EB6E1F", "#E31937"), notch = TRUE, outline = FALSE, border = "#0C2340")
 ```
 
 
@@ -366,7 +411,7 @@ sabermtrkk.WP(JVhouRs, JVhouRa)
 
 ###Saturday @Minute Maid Park
 
-####*
+####**
 
 
 
@@ -387,7 +432,7 @@ sabermtrkk.WP(JVhouRs, JVhouRa)
 ```{r}
 MILvCOL18DS <- mlb_elo %>%
   select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
-  filter(playoff == "d") %>%
+  filter(playoff == "2") %>%
   filter(team1 == "MIL" | team1 == "COL") %>%
   filter(season == "2018") %>%
   arrange(date) %>%
@@ -427,7 +472,7 @@ MILRs      <- data.frame(MILRsMELT$value)
 MILRa      <- data.frame(MILRaMELT$value)
 
 #Brewers PITCHERS
-#Chris Sale
+#Brandon Woodruff
 BWmilHRs   <- MLB2018[MLB2018$pitcher1=="Brandon Woodruff", "score1"]
 BWmilHRa   <- MLB2018[MLB2018$pitcher1=="Brandon Woodruff", "score2"]
 BWmilARs   <- MLB2018[MLB2018$pitcher2=="Brandon Woodruff", "score2"]
@@ -454,14 +499,14 @@ COL18H <- subset(MLB2018, team1 == "COL", select = c(date, playoff, season, team
 
 COL18A <- subset(MLB2018, team2 == "COL", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
 
-MILRHRs    <- MLB2018[MLB2018$team1=="COL", "score1"]
-MILRHRa    <- MLB2018[MLB2018$team1=="COL", "score2"]
-MILRARs    <- MLB2018[MLB2018$team2=="COL", "score2"]
-MILRARa    <- MLB2018[MLB2018$team2=="COL", "score1"]
-MILRsMELT  <- melt(c(MILRHRs, MILRARs), na.rm = TRUE)
-MILRaMELT  <- melt(c(MILRHRa, MILRARa), na.rm = TRUE)
-MILRs      <- data.frame(MILRsMELT$value)
-MILRa      <- data.frame(MILRaMELT$value)
+COLRHRs    <- MLB2018[MLB2018$team1=="COL", "score1"]
+COLRHRa    <- MLB2018[MLB2018$team1=="COL", "score2"]
+COLRARs    <- MLB2018[MLB2018$team2=="COL", "score2"]
+COLRARa    <- MLB2018[MLB2018$team2=="COL", "score1"]
+COLRsMELT  <- melt(c(COLRHRs, COLRARs), na.rm = TRUE)
+COLRaMELT  <- melt(c(COLRHRa, COLRARa), na.rm = TRUE)
+COLRs      <- data.frame(COLRsMELT$value)
+COLRa      <- data.frame(COLRaMELT$value)
 
 #Rockies PITCHERS
 #Antonio Senzatela
@@ -476,6 +521,213 @@ AScolRa    <- data.frame(AScolAMELT$value)
 
 ```
 
+####Sabermetric Win Percentage
+```{r}
+print("Brewers")
+sabermtrkk.WP(MILRs, MILRa)
+print("Rockies")
+sabermtrkk.WP(COLRs, MILRa)
+```
+
+
+####Miluake '18 Season and Colorado '18 Season
+
+```{r}
+boxplot(c(COLRa, MILRa, COLRs, MILRs), horizontal = TRUE, names = c("COL.RA", "MIL.RA", "COL.Rs", "MIL.Rs"), main = "Brewers/Rockies", sub = "Runs Scored vs. Runs Allowed", col = c( "#33006F", "#0A2351", "#33006F", "#0A2351"), notch = TRUE, outline = FALSE, border = "#85714D")
+```
+
+
+```{r}
+#Brewers Vs. Rockies 2018
+MIL18COL     <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(team1 == "MIL") %>%
+  filter(team2 == "COL") %>%
+  filter(season == "2018") %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+COL18MIL     <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(team1 == "COL") %>%
+  filter(team2 == "MIL") %>%
+  filter(season == "2018") %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+MILvCOL      <- melt(c(MIL18COL$score1, COL18MIL$score2))
+
+COLvMIL      <- melt(c(COL18MIL$score1, MIL18COL$score2))
+```
+
+####Brewers vs Rockies '18
+
+```{r}
+boxplot(c(COLvMIL, MILvCOL), horizontal = TRUE, names = c("COL", "MIL"), main = "MIL vs COL '18", sub = "Runs Scored against eachother", col = c("#33006F", "#0A2351"), border = "#85714D")
+
+```
+
+
+
+###Thursday @Miller Park
+####*Brandon Woodruff (MIL) vs. Antonio Senzatela(COL)*
+
+```{r}
+print("Brandon Woodruff")
+sabermtrkk.WP(BWmilRs, BWmilRa)
+print("Antonio Senzatela")
+sabermtrkk.WP(AScolRs, AScolRa)
+```
+
+######***PREDICT: BREWERS WIN***
+
+
+
+
+##***Dodgers @ Braves****
+
+#####Series Viewer
+```{r}
+ATLvLAD18DS <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(playoff == "2") %>%
+  filter(team1 == "ATL" | team1 == "LAD") %>%
+  filter(season == "2018") %>%
+  arrange(date) %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+ATLvLAD18DS
+
+```
+
+
+```{r}
+#Braves
+
+ATLHRs     <- MLB2018[MLB2018$team1=="ATL", "score1"]
+ATLHRa     <- MLB2018[MLB2018$team1=="ATL", "score2"]
+ATLARs     <- MLB2018[MLB2018$team2=="ATL", "score2"]
+ATLARa     <- MLB2018[MLB2018$team2=="ATL", "score1"]
+ATLRsMELT  <- melt(c(ATLHRs, ATLARs), na.rm = TRUE)
+ATLaMELT   <- melt(c(ATLHRa, ATLARa), na.rm = TRUE)
+ATLRs      <- data.frame(ATLRsMELT$value)
+ATLRa      <- data.frame(ATLaMELT$value)
+
+#Braves Pitchers
+#Mike Foltynewicz
+
+MFatlHRs   <- MLB2018[MLB2018$pitcher1=="Mike Foltynewicz", "score1"]
+MFatlHRa   <- MLB2018[MLB2018$pitcher1=="Mike Foltynewicz", "score2"]
+MFatlARs   <- MLB2018[MLB2018$pitcher2=="Mike Foltynewicz", "score2"]
+MFatlARa   <- MLB2018[MLB2018$pitcher2=="Mike Foltynewicz", "score1"]
+MFatlRMELT <- melt(c(MFatlHRs, MFatlARs), na.rm = TRUE)
+MFatlAMELT <- melt(c(MFatlHRa, MFatlARa), na.rm = TRUE)
+MFatlRs    <- data.frame(MFatlRMELT$value)
+MFatlRa    <- data.frame(MFatlAMELT$value)
+
+#Anibal Sanchez
+
+ASatlHRs   <- MLB2018[MLB2018$pitcher1=="Anibal Sanchez", "score1"]
+ASatlHRa   <- MLB2018[MLB2018$pitcher1=="Anibal Sanchez", "score2"]
+ASatlARs   <- MLB2018[MLB2018$pitcher2=="Anibal Sanchez", "score2"]
+ASatlARa   <- MLB2018[MLB2018$pitcher2=="Anibal Sanchez", "score1"]
+ASatlRMELT <- melt(c(ASatlHRs, ASatlARs), na.rm = TRUE)
+ASatlAMELT <- melt(c(ASatlHRa, ASatlARa), na.rm = TRUE)
+ASatlRs    <- data.frame(ASatlRMELT$value)
+ASatlRa    <- data.frame(ASatlAMELT$value)
+
+#Dodgers
+
+LADHRs     <- MLB2018[MLB2018$team1=="LAD", "score1"]
+LADHRa     <- MLB2018[MLB2018$team1=="LAD", "score2"]
+LADARs     <- MLB2018[MLB2018$team2=="LAD", "score2"]
+LADARa     <- MLB2018[MLB2018$team2=="LAD", "score1"]
+LADRsMELT  <- melt(c(LADHRs, LADARs), na.rm = TRUE)
+LADaMELT   <- melt(c(LADHRa, LADARa), na.rm = TRUE)
+LADRs      <- data.frame(LADRsMELT$value)
+LADRa      <- data.frame(LADaMELT$value)
+
+#Dodgers Pitchers
+
+#Hyun-Jin Ryu
+HRladHRs   <- MLB2018[MLB2018$pitcher1=="Hyun-Jin Ryu", "score1"]
+HRladHRa   <- MLB2018[MLB2018$pitcher1=="Hyun-Jin Ryu", "score2"]
+HRladARs   <- MLB2018[MLB2018$pitcher2=="Hyun-Jin Ryu", "score2"]
+HRladARa   <- MLB2018[MLB2018$pitcher2=="Hyun-Jin Ryu", "score1"]
+HRladRMELT <- melt(c(HRladHRs, HRladARs), na.rm = TRUE)
+HRladAMELT <- melt(c(HRladHRa, HRladARa), na.rm = TRUE)
+HRladRs    <- data.frame(HRladRMELT$value)
+HRladRa    <- data.frame(HRladAMELT$value)
+
+#Hyun-Jin Ryu
+CKladHRs   <- MLB2018[MLB2018$pitcher1=="Hyun-Jin Ryu", "score1"]
+CKladHRa   <- MLB2018[MLB2018$pitcher1=="Hyun-Jin Ryu", "score2"]
+CKladARs   <- MLB2018[MLB2018$pitcher2=="Hyun-Jin Ryu", "score2"]
+CKladARa   <- MLB2018[MLB2018$pitcher2=="Hyun-Jin Ryu", "score1"]
+CKladRMELT <- melt(c(CKladHRs, CKladARs), na.rm = TRUE)
+CKladAMELT <- melt(c(CKladHRa, CKladARa), na.rm = TRUE)
+CKladRs    <- data.frame(CKladRMELT$value)
+CKladRa    <- data.frame(CKladAMELT$value)
+```
+
+###Sabermetric Win Percentage
+
+```{r}
+print("Dodgers")
+sabermtrkk.WP(LADRs, LADRa)
+print("Braves")
+sabermtrkk.WP(ATLRs, ATLRa)
+```
+
+
+
+
+###Dodgers and Braves 2018
+
+```{r}
+boxplot(c(LADRa, ATLRa, LADRs, ATLRs), horizontal = TRUE, names = c("LAD.RA", "ATL.RA", "LAD.Rs", "ATL.Rs"), main = "Dodgers/Braves", sub = "Runs Scored vs. Runs Allowed", col = c( "#005A9C", "#CE1141", "#005A9C", "#CE1141"), notch = TRUE, outline = FALSE, border = "#A5ACAF")
+```
+
+
+
+#Dodgers Vs. Braves 2018
+```{r}
+#Brewers Vs. Rockies 2018
+LAD18ATL     <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(team1 == "LAD") %>%
+  filter(team2 == "ATL") %>%
+  filter(season == "2018") %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+ATL18LAD     <- mlb_elo %>%
+  select(date, season, playoff, team1, team2, pitcher1, pitcher2, score1, score2) %>%
+  filter(team1 == "ATL") %>%
+  filter(team2 == "LAD") %>%
+  filter(season == "2018") %>%
+  select(date, team1, team2, pitcher1, pitcher2, score1, score2)
+
+LADvATL      <- melt(c(LAD18ATL$score1, ATL18LAD$score2))
+
+ATLvLAD      <- melt(c(ATL18LAD$score1, LAD18ATL$score2))
+
+```
+
+
+```{r}
+boxplot(c(ATLvLAD, LADvATL), horizontal = TRUE, names = c("ATL", "LAD"), main = "ATL vs LAD '18", sub = "Runs Scored against eachother", col = c("#CE1141", "#005A9C"), border = "#A5ACAF")
+```
+
+
+####Thursday @ Atlanta Arena
+#####*Hyun-Jin Ryu vs Hyun-Jin Ryu*
+
+```{r}
+print("Hyun-Jin Ryu")
+sabermtrkk.WP(HRladRs, HRladRa)
+print("Mike Foltynewicz")
+sabermtrkk.WP(MFatlRs, MFatlRa)
+```
+
+######***PREDICT: DODGERS WIN***
 
 
 
@@ -490,22 +742,14 @@ AScolRa    <- data.frame(AScolAMELT$value)
 
 
 
+#&nbsp;
 
+#&nbsp;
 
+#&nbsp;
 
+#&nbsp;
 
+#&nbsp;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#&nbsp;
