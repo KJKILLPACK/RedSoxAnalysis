@@ -89,7 +89,7 @@ sabermtrkk.WP(LHoakRs, LHoakRa)
 
 
 ```{r echo = FALSE}
-boxplot(c(NYYRa, OAKRa, NYYRs, OAKRs), horizontal = TRUE, names = c("NYY.RA", "OAK.RA", "NYY.Rs", "OAK.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "midnightblue", "forestgreen", "midnightblue", "forestgreen"), notch = TRUE, outline = FALSE, border = "goldenrod")
+boxplot(c(NYYRa, OAKRa, NYYRs, OAKRs), horizontal = TRUE, names = c("NYY.RA", "OAK.RA", "NYY.Rs", "OAK.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "#0C2340", "#003831", "#0C2340", "#003831"), notch = TRUE, outline = FALSE, border = "goldenrod")
 ```
 
 
@@ -106,7 +106,7 @@ YANKSvOAK    <- melt(c(NYY18OAK$score2, OAK18NYY$score1))
 ```
 
 ```{r echo = FALSE}
-boxplot(c(OAKvYANKS, YANKSvOAK), horizontal = TRUE, names = c("OAK", "NYY"), main = "OAK vs NYY '18", sub = "Runs Scored against eachother", col = c("forestgreen", "midnightblue"), border = "goldenrod")
+boxplot(c(OAKvYANKS, YANKSvOAK), horizontal = TRUE, names = c("OAK", "NYY"), main = "OAK vs NYY '18", sub = "Runs Scored against eachother", col = c("#003831", "#0C2340"), border = "goldenrod")
 ```
 
 
@@ -207,11 +207,11 @@ MTnyyRa    <- data.frame(MTnyyAMELT$value)
 #Yankees vs. Red Sox 2018
 NYY18BOS     <- subset(YANKS18H, team2=="BOS", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2), na.rm = TRUE)
 
-BOS18NYY     <- subset(YANKS18A, team1=="BOS", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2))
+BOS18NYY     <- subset(YANKS18A, team1=="BOS", select = c(date, team1, team2, pitcher1, pitcher2, score1, score2), na.rm = TRUE)
 
-BOSvNYY      <- melt(c(NYY18OAK$score1, OAK18NYY$score2))
+BOSvNYY      <- melt(c(NYY18BOS$score1, BOS18NYY$score2))
 
-NYYvBOS      <- melt(c(NYY18OAK$score2, OAK18NYY$score1))
+NYYvBOS      <- melt(c(NYY18BOS$score2, BOS18NYY$score1))
 ```
 
 
@@ -227,7 +227,7 @@ BOSvNYY18DS <- mlb_elo %>%
 BOSvNYY18DS
 ```
 
-
+#&nbsp;
 
 ####Sabermetric Win Percentage
 ```{r echo = FALSE}
@@ -236,22 +236,21 @@ sabermtrkk.WP(BOSRs, BOSRa)
 print("Yankees")
 sabermtrkk.WP(NYYRs, NYYRa)
 ```
+#&nbsp;
 
-####Red Sox '18 Season and Yankes '18 Season
 
 ```{r echo = FALSE}
-boxplot(c(NYYRa, BOSRa, NYYRs, BOSRs), horizontal = TRUE, names = c("NYY.RA", "BOS.RA", "NYY.Rs", "BOS.Rs"), main = "Yankees/A's", sub = "Runs Scored vs. Runs Allowed", col = c( "midnightblue", "red3", "midnightblue", "red3"), notch = TRUE, outline = FALSE, border = "darkgrey")
+boxplot(c(NYYRa, BOSRa, NYYRs, BOSRs), horizontal = TRUE, names = c("NYY.RA", "BOS.RA", "NYY.Rs", "BOS.Rs"), main = "Red Sox '18 Season and Yankes '18 Season", sub = "Runs Scored vs. Runs Allowed", col = c( "#0C2340", "#BD3039", "#0C2340", "#BD3039"), notch = TRUE, outline = FALSE, border = "grey")
 
 ```
-
-####Red Sox vs. Yankees '18
+#&nbsp;
 
 ```{r echo = FALSE}
-boxplot(c(BOSvNYY, NYYvBOS), horizontal = TRUE, names = c("BOS", "NYY"), main = "BOS vs NYY '18", sub = "Runs Scored against eachother", col = c("red3", "midnightblue"), border = "darkgrey")
+boxplot(c(BOSvNYY, NYYvBOS), horizontal = TRUE, names = c("BOS", "NYY"), main = "Red Sox vs. Yankees '18", sub = "Runs Scored against eachother", col = c("#BD3039", "#0C2340"), border = "grey")
 ```
 
 
-
+#&nbsp;
 ####Friday @FENWAY
 ####*Chris Sale vs. J.A. Happ Sabermetric %*
 
@@ -261,10 +260,10 @@ sabermtrkk.WP(CSbosRs, CSbosRa)
 print("J.A. Happ")
 sabermtrkk.WP(JHnyyRs, JHnyyRa)
 ```
-
-
+#####56% Red Sox Win / 44% Yankees Win
+#&nbsp;
 ####Saturday @FENWAY
-####*David Price vs. TBD Sabermetric %*
+####*David Price vs. Masahiro Tanaka Sabermetric %*
 
 ```{r echo=FALSE}
 print("David Price")
@@ -272,24 +271,45 @@ sabermtrkk.WP(DPbosRs, DPbosRa)
 print("Masahiro Tanaka")
 sabermtrkk.WP(MTnyyRs, MTnyyRa)
 ```
-
+#####52% Red Sox Win / 48% Yankees Win
+#&nbsp;
 ####Monday @ YANKEE STADIUM
-####*TBD vs. Rick Porcello*
+####*Luis Severino vs. Rick Porcello*
 
 ```{r}
-print("TBD")
-print("TBD")
+print("Luis Severino (NYY)")
+sabermtrkk.WP(LSnyyRs, LSnyyRa)
 print("Rick Porcello (BOS)")
 sabermtrkk.WP(RPbosRs, RPbosRa)
 ```
-
-
+#####46% Red Sox Win / 54% Yankees Win
+#&nbsp;
+####Tuesday @ YANKEE STADIUM
+####*CC Sabathia vs. Nathan Eovaldi*
+```{r}
+print("Nathan Eovaldi")
+PitcherSBWsea.KBS("Nathan Eovaldi", "2018")
+print("CC Sabathia")
+PitcherSBWsea.KBS("CC Sabathia", "2018")
+```
+#####51% Red Sox Win / 49% Yankees Win
+#&nbsp;
+####Thursday @ FENWAY
+####*TBD vs. TBD*
+```{r}
+print("TBD")
+print("TBD")
+#PitcherSBWsea.KBS("Nathan Eovaldi", "2018")
+print("TBD")
+print("TBD")
+#PitcherSBWsea.KBS("CC Sabathia", "2018")
+```
 
 
 #&nbsp;
 
 
-
+#&nbsp;
 
 
 ##*Indians @ Astros*
@@ -333,6 +353,7 @@ HOURs      <- data.frame(HOURsMELT$value)
 HOURa      <- data.frame(HOURaMELT$value)
 
 #Astros Starting Pitching Rotation
+#Justin Verlander
 JVhouHRs   <- MLB2018[MLB2018$pitcher1=="Justin Verlander", "score1"]
 JVhouHRa   <- MLB2018[MLB2018$pitcher1=="Justin Verlander", "score2"]
 JVhouARs   <- MLB2018[MLB2018$pitcher2=="Justin Verlander", "score2"]
@@ -341,6 +362,24 @@ JVhouRMELT <- melt(c(JVhouHRs, JVhouARs), na.rm = TRUE)
 JVhouAMELT <- melt(c(JVhouHRa, JVhouARa), na.rm = TRUE)
 JVhouRs    <- data.frame(JVhouRMELT$value)
 JVhouRa    <- data.frame(JVhouAMELT$value)
+#Gerrit Cole
+GChouHRs   <- MLB2018[MLB2018$pitcher1=="Gerrit Cole", "score1"]
+GChouHRa   <- MLB2018[MLB2018$pitcher1=="Gerrit Cole", "score2"]
+GChouARs   <- MLB2018[MLB2018$pitcher2=="Gerrit Cole", "score2"]
+GChouARa   <- MLB2018[MLB2018$pitcher2=="Gerrit Cole", "score1"]
+GChouRMELT <- melt(c(GChouHRs, GChouARs), na.rm = TRUE)
+GChouAMELT <- melt(c(GChouHRa, GChouARa), na.rm = TRUE)
+GChouRs    <- data.frame(GChouRMELT$value)
+GChouRa    <- data.frame(GChouAMELT$value)
+#Dallas Keuchel
+DKhouHRs   <- MLB2018[MLB2018$pitcher1=="Dallas Keuchel", "score1"]
+DKhouHRa   <- MLB2018[MLB2018$pitcher1=="Dallas Keuchel", "score2"]
+DKhouARs   <- MLB2018[MLB2018$pitcher2=="Dallas Keuchel", "score2"]
+DKhouARa   <- MLB2018[MLB2018$pitcher2=="Dallas Keuchel", "score1"]
+DKhouRMELT <- melt(c(DKhouHRs, DKhouARs), na.rm = TRUE)
+DKhouAMELT <- melt(c(DKhouHRa, DKhouARa), na.rm = TRUE)
+DKhouRs    <- data.frame(DKhouRMELT$value)
+DKhouRa    <- data.frame(DKhouAMELT$value)
 
 #Cleveland
 CLEHRs     <- MLB2018[MLB2018$team1=="CLE", "score1"]
@@ -353,6 +392,7 @@ CLERs      <- data.frame(CLERsMELT$value)
 CLERa      <- data.frame(CLEaMELT$value)
 
 #Cleveland Starting Pitching Rotation
+#Corey Kluber
 CKcleHRs   <- MLB2018[MLB2018$pitcher1=="Corey Kluber", "score1"]
 CKcleHRa   <- MLB2018[MLB2018$pitcher1=="Corey Kluber", "score2"]
 CKcleARs   <- MLB2018[MLB2018$pitcher2=="Corey Kluber", "score2"]
@@ -361,8 +401,26 @@ CKcleRMELT <- melt(c(CKcleHRs, CKcleARs), na.rm = TRUE)
 CKcleAMELT <- melt(c(CKcleHRa, CKcleARa), na.rm = TRUE)
 CKcleRs    <- data.frame(CKcleRMELT$value)
 CKcleRa    <- data.frame(CKcleAMELT$value)
+#Carlos Carrasco
+CCcleHRs   <- MLB2018[MLB2018$pitcher1=="Carlos Carrasco", "score1"]
+CCcleHRa   <- MLB2018[MLB2018$pitcher1=="Carlos Carrasco", "score2"]
+CCcleARs   <- MLB2018[MLB2018$pitcher2=="Carlos Carrasco", "score2"]
+CCcleARa   <- MLB2018[MLB2018$pitcher2=="Carlos Carrasco", "score1"]
+CCcleRMELT <- melt(c(CCcleHRs, CCcleARs), na.rm = TRUE)
+CCcleAMELT <- melt(c(CCcleHRa, CCcleARa), na.rm = TRUE)
+CCcleRs    <- data.frame(CCcleRMELT$value)
+CCcleRa    <- data.frame(CCcleAMELT$value)
+#Mike Clevinger
+MCcleHRs   <- MLB2018[MLB2018$pitcher1=="Mike Clevinger", "score1"]
+MCcleHRa   <- MLB2018[MLB2018$pitcher1=="Mike Clevinger", "score2"]
+MCcleARs   <- MLB2018[MLB2018$pitcher2=="Mike Clevinger", "score2"]
+MCcleARa   <- MLB2018[MLB2018$pitcher2=="Mike Clevinger", "score1"]
+MCcleRMELT <- melt(c(MCcleHRs, MCcleARs), na.rm = TRUE)
+MCcleAMELT <- melt(c(MCcleHRa, MCcleARa), na.rm = TRUE)
+MCcleRs    <- data.frame(MCcleRMELT$value)
+MCcleRa    <- data.frame(MCcleAMELT$value)
 ```
-
+#&nbsp;
 ####Sabermetric Win Percentage
 
 ```{r}
@@ -372,11 +430,10 @@ print("Indians")
 sabermtrkk.WP(CLERs, CLERa)
 ```
 
-
-####Houston '18 Season and Cleavland '18 Season
+#&nbsp;
 
 ```{r}
-boxplot(c(HOURa, CLERa, HOURs, CLERs), horizontal = TRUE, names = c("HOU.RA", "CLE.RA", "HOU.Rs", "CLE.Rs"), main = "Astros/Indians", sub = "Runs Scored vs. Runs Allowed", col = c( "#EB6E1F", "#E31937", "#EB6E1F", "#E31937"), notch = TRUE, outline = FALSE, border = "#0C2340")
+boxplot(c(HOURa, CLERa, HOURs, CLERs), horizontal = TRUE, names = c("HOU.RA", "CLE.RA", "HOU.Rs", "CLE.Rs"), main = "Houston '18 Season and Cleavland '18 Season", sub = "Runs Scored vs. Runs Allowed", col = c( "#EB6E1F", "#E31937", "#EB6E1F", "#E31937"), notch = TRUE, outline = FALSE, border = "#0C2340")
 ```
 
 
@@ -390,13 +447,13 @@ HOUvCLE      <- melt(c(HOU18CLE$score1, CLE18HOU$score2))
 
 CLEvHOU      <- melt(c(HOU18CLE$score2, CLE18HOU$score1))
 ```
+#&nbsp;
 
-####Houtson vs Cleavland '18
 
 ```{r}
-boxplot(c(HOUvCLE, CLEvHOU), horizontal = TRUE, names = c("HOU", "CLE"), main = "HOU vs CLE '18", sub = "Runs Scored against eachother", col = c("darkorange2", "red"), border = "blue4")
+boxplot(c(HOUvCLE, CLEvHOU), horizontal = TRUE, names = c("HOU", "CLE"), main = "Houtson vs Cleavland '18", sub = "Runs Scored against eachother", col = c("#EB6E1F", "#E31937"), border = "#0C2340")
 ```
-
+#&nbsp;
 
 ###Friday @Minute Maid Park
 
@@ -408,15 +465,34 @@ sabermtrkk.WP(CKcleRs, CKcleRa)
 print("Justin Verlander")
 sabermtrkk.WP(JVhouRs, JVhouRa)
 ```
+#####64% Astro's Win / 36% Indians Win
 
+
+#&nbsp;
 ###Saturday @Minute Maid Park
 
-####**
+####*Carlos Carrasco vs. Gerrit Cole %*
 
+```{r}
+print("Carlos Carrasco")
+sabermtrkk.WP(CCcleRs, CCcleRa)
+print("Gerrit Cole")
+sabermtrkk.WP(GChouRs, GChouRa)
+```
+#####70% Astro's Win / 30% Indians Win
 
+#&nbsp;
+###Monday at @Indians Field
 
+####*Mike Clevinger vs. Dallas Keuchel %*
 
-
+```{r}
+print("Mike Clevinger (CLE)")
+sabermtrkk.WP(MCcleRs, MCcleRa)
+print("Dallas Keuchel (HOU)")
+sabermtrkk.WP(DKhouRs, DKhouRa)
+```
+#####51% Astro's Win / 49% Indians Win
 
 #&nbsp;
 
@@ -520,7 +596,7 @@ AScolRs    <- data.frame(AScolRMELT$value)
 AScolRa    <- data.frame(AScolAMELT$value)
 
 ```
-
+#&nbsp;
 ####Sabermetric Win Percentage
 ```{r}
 print("Brewers")
@@ -528,12 +604,10 @@ sabermtrkk.WP(MILRs, MILRa)
 print("Rockies")
 sabermtrkk.WP(COLRs, MILRa)
 ```
-
-
-####Miluake '18 Season and Colorado '18 Season
+#&nbsp;
 
 ```{r}
-boxplot(c(COLRa, MILRa, COLRs, MILRs), horizontal = TRUE, names = c("COL.RA", "MIL.RA", "COL.Rs", "MIL.Rs"), main = "Brewers/Rockies", sub = "Runs Scored vs. Runs Allowed", col = c( "#33006F", "#0A2351", "#33006F", "#0A2351"), notch = TRUE, outline = FALSE, border = "#85714D")
+boxplot(c(COLRa, MILRa, COLRs, MILRs), horizontal = TRUE, names = c("COL.RA", "MIL.RA", "COL.Rs", "MIL.Rs"), main = "Miluake and Colorado '18 Season", sub = "Runs Scored vs. Runs Allowed", col = c( "#33006F", "#0A2351", "#33006F", "#0A2351"), notch = TRUE, outline = FALSE, border = "#85714D")
 ```
 
 
@@ -557,15 +631,14 @@ MILvCOL      <- melt(c(MIL18COL$score1, COL18MIL$score2))
 
 COLvMIL      <- melt(c(COL18MIL$score1, MIL18COL$score2))
 ```
-
-####Brewers vs Rockies '18
+#&nbsp;
 
 ```{r}
-boxplot(c(COLvMIL, MILvCOL), horizontal = TRUE, names = c("COL", "MIL"), main = "MIL vs COL '18", sub = "Runs Scored against eachother", col = c("#33006F", "#0A2351"), border = "#85714D")
+boxplot(c(COLvMIL, MILvCOL), horizontal = TRUE, names = c("COL", "MIL"), main = "Brewers vs Rockies '18", sub = "Runs Scored against eachother", col = c("#33006F", "#0A2351"), border = "#85714D")
 
 ```
 
-
+#&nbsp;
 
 ###Thursday @Miller Park
 ####*Brandon Woodruff (MIL) vs. Antonio Senzatela(COL)*
@@ -579,8 +652,67 @@ sabermtrkk.WP(AScolRs, AScolRa)
 
 ######***PREDICT: BREWERS WIN***
 
+###Firday @Miller Park
+####*Jhoulys Chacin (MIL) vs. Tyler Anderson (COL)*
+
+```{r}
+print("Jhoulys Chacin")
+PitcherSBWsea.KBS("Jhoulys Chacin", "2018")
+print("Tyler Anderson")
+PitcherSBWsea.KBS("Tyler Anderson", "2018")
+```
+
+######***PREDICT: BREWERS WIN***
+
+#&nbsp;
+
+###Sunday @Coors Field
+####*Wade Miley (MIL) vs. German Marquez (COL)*
+
+```{r}
+print("Wade Miley")
+PitcherSBWsea.KBS("Wade Miley", "2018")
+print("German Marquez")
+PitcherSBWsea.KBS("German Marquez", "2018")
+```
+
+######***PREDICT: BREWERS WIN***
+
+#&nbsp;
+
+###Monday @Coors Field
+####*TBD (MIL) vs. Kyle Freeland (COL)*
+
+```{r}
+print("TBD")
+print("TBD")
+print("Kyle Freeland")
+PitcherSBWsea.KBS("Kyle Freeland", "2018")
+```
+
+######***PREDICT: ***
+
+#&nbsp;
+
+###Thursday @Miller Park
+####*TBD (MIL) vs. TBD (COL)*
+
+```{r}
+print("TBD")
+print("TBD")
+print("TBD")
+print("TBD")
+```
+
+######***PREDICT: ***
+
+#&nbsp;
 
 
+
+
+#&nbsp;
+#&nbsp;
 
 ##***Dodgers @ Braves****
 
@@ -667,7 +799,7 @@ CKladAMELT <- melt(c(CKladHRa, CKladARa), na.rm = TRUE)
 CKladRs    <- data.frame(CKladRMELT$value)
 CKladRa    <- data.frame(CKladAMELT$value)
 ```
-
+#&nbsp;
 ###Sabermetric Win Percentage
 
 ```{r}
@@ -676,19 +808,14 @@ sabermtrkk.WP(LADRs, LADRa)
 print("Braves")
 sabermtrkk.WP(ATLRs, ATLRa)
 ```
-
-
-
-
-###Dodgers and Braves 2018
+#&nbsp;
 
 ```{r}
-boxplot(c(LADRa, ATLRa, LADRs, ATLRs), horizontal = TRUE, names = c("LAD.RA", "ATL.RA", "LAD.Rs", "ATL.Rs"), main = "Dodgers/Braves", sub = "Runs Scored vs. Runs Allowed", col = c( "#005A9C", "#CE1141", "#005A9C", "#CE1141"), notch = TRUE, outline = FALSE, border = "#A5ACAF")
+boxplot(c(LADRa, ATLRa, LADRs, ATLRs), horizontal = TRUE, names = c("LAD.RA", "ATL.RA", "LAD.Rs", "ATL.Rs"), main = "Dodgers and Braves 2018", sub = "Runs Scored vs. Runs Allowed", col = c( "#005A9C", "#CE1141", "#005A9C", "#CE1141"), notch = TRUE, outline = FALSE, border = "#A5ACAF")
 ```
 
+#&nbsp;
 
-
-#Dodgers Vs. Braves 2018
 ```{r}
 #Brewers Vs. Rockies 2018
 LAD18ATL     <- mlb_elo %>%
@@ -713,11 +840,11 @@ ATLvLAD      <- melt(c(ATL18LAD$score1, LAD18ATL$score2))
 
 
 ```{r}
-boxplot(c(ATLvLAD, LADvATL), horizontal = TRUE, names = c("ATL", "LAD"), main = "ATL vs LAD '18", sub = "Runs Scored against eachother", col = c("#CE1141", "#005A9C"), border = "#A5ACAF")
+boxplot(c(ATLvLAD, LADvATL), horizontal = TRUE, names = c("ATL", "LAD"), main = "Dodgers Vs. Braves 2018", sub = "Runs Scored against eachother", col = c("#CE1141", "#005A9C"), border = "#A5ACAF")
 ```
+#&nbsp;
 
-
-####Thursday @ Atlanta Arena
+####Thursday @ Dodgers Stadium
 #####*Hyun-Jin Ryu vs Hyun-Jin Ryu*
 
 ```{r}
@@ -727,18 +854,97 @@ print("Mike Foltynewicz")
 sabermtrkk.WP(MFatlRs, MFatlRa)
 ```
 
+######***PREDICT: 65% DODGERS WIN***
+
+#&nbsp;
+
+####Friday @ Dodgers Stadium
+#####*Clayton Kershaw vs Anibal Sanchez*
+
+```{r}
+print("Clayton Kershaw")
+PitcherSBWsea.KBS("Clayton Kershaw", "2018")
+print("Anibal Sanchez")
+PitcherSBWsea.KBS("Anibal Sanchez", "2018")
+```
+
 ######***PREDICT: DODGERS WIN***
+#&nbsp;
+
+
+
+####Sunday @ Atlanta
+#####*Walker Buehler vs Sean Newcomb*
+
+```{r}
+print("Walker Buehler (LAD)")
+PitcherSBWsea.KBS("Walker Buehler", "2018")
+print("Sean Newcomb (ATL")
+PitcherSBWsea.KBS("Sean Newcomb", "2018")
+```
+
+######***PREDICT: 54% DODGERS WIN***
+#&nbsp;
+
+####Monday @ Atlanta
+#####*Rich Hill (LAD) vs Mike Foltynewicz (ATL)*
+
+```{r}
+print("Rich Hill (LAD)")
+PitcherSBWsea.KBS("Rich Hill", "2018")
+print("Sean Newcomb (ATL")
+PitcherSBWsea.KBS("Mike Foltynewicz", "2018")
+```
+
+######***PREDICT: 61% DODGERS WIN***
+
+#&nbsp;
+#&nbsp;
+
+
+#***American League Championship Series***
 
 
 
 
+#&nbsp;
+#&nbsp;
+
+
+#***National League Championship Series***
+###Miluake Brewers vs Los Angeles Dodgers
+
+```{r}
+MILvLADnlcs <- PSViewrrQF.KBS("MIL", "LAD", "2018", "3")
+MILvLADnlcs
+```
+
+
+```{r}
+boxplot(c(LADRa, MILRa, LADRs, MILRs), horizontal = TRUE, names = c("LAD.RA", "MIL.RA", "LAD.Rs", "MIL.Rs"), main = "Dodgers and Brewers 2018", sub = "Runs Scored vs. Runs Allowed", col = c( "#005A9C", "#0A2351", "#005A9C", "#0A2351"), notch = TRUE, outline = FALSE, border = "#85714D")
+```
+#&nbsp;
+
+```{r}
+TVTRsRaBOXPLOT.KBS("MIL", "#0A2351", "LAD", "#005A9C","Dodgers vs Brewers 2018", "Runs Scored vs. Runs Allowed", "#85714D", "2018")
+
+```
 
 
 
+#&nbsp;
 
+####Thursday @ Miller Park
+#####*Clayton Kershaw vs TBD*
 
-
-
+```{r}
+print("Clayton Kershaw (LAD)")
+PitcherSBWsea.KBS("Clayton Kershaw", "2018")
+PitcherSBW.all.playoffs.KBS("Clayton Kershaw")
+mean(c(PitcherSBWsea.KBS("Clayton Kershaw", "2018"), PitcherSBW.all.playoffs.KBS("Clayton Kershaw")))
+print("TBD (MIL)")
+#PitcherSBWsea.KBS("Mike Foltynewicz", "2018")
+```
 
 
 

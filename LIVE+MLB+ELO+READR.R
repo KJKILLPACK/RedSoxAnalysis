@@ -5,3 +5,4 @@ library(tidyverse)
       playoff = ifelse(playoff == "<NA>", NA, playoff),
       neutral = as.logical(neutral)
     )
+  
