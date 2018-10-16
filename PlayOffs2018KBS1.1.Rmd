@@ -1,5 +1,5 @@
 ---
-title: "MLB PLAYOFFS 2018"
+title: "MLB PLAYOFFS 2018 KBS 1.1"
 output: html_notebook
 editor_options: 
   chunk_output_type: inline
@@ -152,7 +152,7 @@ LSchcRs    <- data.frame(LSchcRMELT$value)
 LSchcRa    <- data.frame(LSchcAMELT$value)
 ```
 
-```{r}
+
 ```{r}
 CHC18H <- subset(MLB2018, team1 == "CHC", select = c(date, playoff, season, team1, team2, pitcher1, pitcher2, score1, score2))
 
@@ -177,8 +177,12 @@ boxplot(c(COLvCHC, CHCvCOL), horizontal = TRUE, names = c("COL","CHC"), main = "
 ```
 
 ```{r}
-print.noquote("Cubs, ")
-PitcherSBWsea.KBS()
+print.noquote("Cubs, Jon Lester")
+sabermtrkk.WP(CHCRs, CHCRa)
+PitcherSBWsea.KBS("Jon Lester", "2018")
+print.noquote("Rockies, Kyle Freeland")
+sabermtrkk.WP(COLRs, COLRa)
+PitcherSBWsea.KBS("Kyle Freeland", "2018")
 ```
 
 

@@ -1,0 +1,194 @@
+---
+title: "MLB PLAYOFFS 2018 1.2 formula Valadation"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+#Validation of KBS 1.2 method
+##Wild Card Games
+
+#####NYY vs OAK
+```{r}
+PSViewrrQF.KBS("NYY", "OAK", "2018", "1")
+```
+
+```{r}
+GameSBWprobabilityPO("NYY", "Luis Severino", "OAK", "Liam Hendriks", "2018", "2018-10-03")
+```
+
+
+#####COL vs CHC
+```{r}
+PSViewrrQF.KBS("COL", "CHC", "2018", "1")
+```
+
+```{r}
+GameSBWprobabilityPO("CHC", "Jon Lester", "COL", "Kyle Freeland", "2018", "2018-10-02")
+```
+
+##Devisional Series'
+
+#####BOS vs NYY
+```{r}
+PSViewrrQF.KBS("NYY", "BOS", "2018", "2")
+```
+Game 1
+```{r}
+GameSBWprobabilityPO("BOS", "Chris Sale", "NYY", "J.A. Happ", "2018", "2018-10-05")
+```
+
+Game 2
+
+```{r}
+GameSBWprobabilityPO("BOS", "David Price", "NYY", "Masahiro Tanaka", "2018", "2018-10-06")
+```
+
+Game 3
+
+```{r}
+GameSBWprobabilityPO("NYY", "Luis Severino", "BOS", "Nathan Eovaldi", "2018", "2018-10-08")
+```
+
+Game 4
+
+```{r}
+GameSBWprobabilityPO("NYY", "CC Sabathia", "BOS", "Rick Porcello", "2018", "2018-10-09")
+```
+
+#####HOU vs CLE
+```{r}
+PSViewrrQF.KBS("HOU", "CLE", "2018", "2")
+```
+
+Game 1
+
+```{r}
+GameSBWprobabilityPO("HOU", "Justin Verlander", "CLE", "Corey Kluber", "2018", "2018-10-05")
+```
+
+Game 2
+
+```{r}
+GameSBWprobabilityPO("HOU", "Gerrit Cole", "CLE", "Carlos Carrasco", "2018", "2018-10-06")
+```
+
+Game 3
+
+```{r}
+GameSBWprobabilityPO("CLE", "Mike Clevinger", "HOU", "Dallas Keuchel", "2018", "2018-10-08")
+```
+
+
+#####MIL vs COL
+```{r}
+PSViewrrQF.KBS("MIL", "COL", "2018", "2")
+```
+Game 1
+```{r}
+GameSBWprobabilityPO("MIL", "Brandon Woodruff", "COL", "Antonio Senzatela", "2018", "2018-10-04")
+```
+
+Game 2
+
+```{r}
+GameSBWprobabilityPO("MIL", "Jhoulys Chacin", "COL", "Tyler Anderson", "2018", "2018-10-05")
+```
+
+Game 3
+
+```{r}
+GameSBWprobabilityPO("COL", "German Marquez", "MIL", "Wade Miley", "2018", "2018-10-08")
+```
+
+
+#####ATL vs LAD
+```{r}
+PSViewrrQF.KBS("ATL", "LAD", "2018", "2")
+```
+
+Game 1
+
+```{r}
+GameSBWprobabilityPO("LAD", "Hyun-Jin Ryu", "ATL", "Mike Foltynewicz", "2018", "2018-10-04")
+```
+
+Game 2
+
+```{r}
+GameSBWprobabilityPO("LAD", "Clayton Kershaw", "ATL", "Anibal Sanchez", "2018", "2018-10-05")
+```
+
+Game 3
+
+```{r}
+GameSBWprobabilityPO("ATL", "Sean Newcomb", "LAD", "Walker Buehler", "2018", "2018-10-07")
+```
+
+Game 4
+
+```{r}
+GameSBWprobabilityPO("ATL", "Mike Foltynewicz", "LAD", "Rich Hill", "2018", "2018-10-08")
+```
+
+##Championship Series'
+
+#####BOS vs HOU
+```{r}
+PSViewrrQF.KBS("HOU", "BOS", "2018", "3")
+```
+Game 1
+```{r}
+GameSBWprobabilityPO("BOS", "Chris Sale", "HOU", "Justin Verlander", "2018", "2018-10-13")
+```
+
+Game 2
+
+```{r}
+GameSBWprobabilityPO("BOS", "David Price", "HOU", "Gerrit Cole", "2018", "2018-10-14")
+```
+
+Game 3
+
+```{r}
+GameSBWprobabilityPO("HOU", "Dallas Keuchel", "BOS", "Nathan Eovaldi", "2018", "2018-10-16")
+```
+
+Game 4
+
+```{r}
+GameSBWprobabilityPO("HOU", "Charlie Morton", "BOS", "Rick Porcello", "2018", "2018-10-17")
+```
+
+
+
+#####LAD vs MIL
+```{r}
+PSViewrrQF.KBS("LAD", "MIL", "2018", "3")
+```
+Game 1
+```{r}
+GameSBWprobabilityPO("MIL", "Gio Gonzalez", "LAD", "Clayton Kershaw", "2018", "2018-10-12")
+```
+
+Game 2
+
+```{r}
+GameSBWprobabilityPO("MIL", "Wade Miley", "LAD", "Hyun-Jin Ryu", "2018", "2018-10-13")
+```
+
+Game 3
+
+```{r}
+GameSBWprobabilityPO("LAD", "Walker Buehler", "MIL", "Jhoulys Chacin", "2018", "2018-10-15")
+```
+
+Game 4
+
+```{r}
+GameSBWprobabilityPO("NYY", "CC Sabathia", "BOS", "Rick Porcello", "2018", "2018-10-09")
+```
+
+
+
